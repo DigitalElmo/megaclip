@@ -153,7 +153,7 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 <div class="panel"><h3>New This Week</h3><ul>{freshlist}</ul></div>
 <div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
 </div>
-<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here.</footer></div>
+<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
 <script>
 const q=document.getElementById('q'),cards=[...document.querySelectorAll('.g')],boxes=[...document.querySelectorAll('.box')],nr=document.getElementById('nores');
 const ph=document.getElementById('ph');
