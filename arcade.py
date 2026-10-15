@@ -4,6 +4,9 @@ import json, html, re
 from datetime import date
 
 E = html.escape
+SUGGEST = "mailto:digital_elmo@proton.me?subject=MegaClip%20game%20suggestion&body=Game%20name%3A%0ALink%20where%20you%20play%20it%3A%0ADid%20you%20make%20it%3F%20%28yes/no%29%3A%0ADoes%20it%20work%20on%20a%20phone%3F%20%28yes/no/not%20sure%29%3A%0AAnything%20else%3A%0A"
+FIXMAIL = "mailto:digital_elmo@proton.me?subject=MegaClip%3A%20remove%20or%20fix%20a%20game&body=Which%20game%3A%0AWhat%20should%20happen%20%28remove%20/%20change%20link%20/%20change%20name%20or%20picture%20/%20broken%20link%29%3A%0AIs%20it%20your%20game%3F%20%28yes/no%29%3A%0ADetails%3A%0A"
+MAIL = "digital_elmo@proton.me"
 CATS = [  # key, label, icon colour
     ("new", "New Games!", "#ff3d00"),
     ("shoot", "Shoot 'em Up", "#d81b1b"),
@@ -152,7 +155,7 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 {boxes}</main>
 <aside class="right"><div class="panel"><h3>&#9749; Keep MegaClip running</h3><ul><li>MegaClip is free and staying free. No ads, ever. If it gave you a new favourite game, you can buy me a coffee.<a class="kofi" href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer">&#9749; Support on Ko-fi</a></li></ul></div><div class="panel"><h3>&#9733; Top 10 Games</h3><ol>{toplist}</ol></div>
 <div class="panel"><h3>New This Week</h3><ul>{freshlist}</ul></div>
-<div class="panel"><h3>&#128236; Got a game? Suggest it!</h3><ul><li>Made a browser game, or found one we\'re missing? <a href="https://github.com/DigitalElmo/megaclip/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer"><b>Send it in here</b></a>.</li><li>Tell us the name, the link, whether you made it and if it works on a phone.</li></ul></div><div class="panel"><h3>&#128737; Is MegaClip safe?</h3><ul><li>Just links. No downloads, no ads, no cookies, no logins. <a href="/about"><b>See how to check it yourself</b></a>.</li></ul></div><div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
+<div class="panel"><h3>&#128236; Got a game? Suggest it!</h3><ul><li>Made a browser game, or found one we\'re missing? <a href="{E(SUGGEST)}"><b>Email it to us</b></a>.</li><li>Tell us the name, the link, whether you made it and if it works on a phone. Email: <b>{MAIL}</b></li></ul></div><div class="panel"><h3>&#128737; Is MegaClip safe?</h3><ul><li>Just links. No downloads, no ads, no cookies, no logins. <a href="/about"><b>See how to check it yourself</b></a>.</li></ul></div><div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
 </div>
 <footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="/about" style="color:#fff">About &amp; Safety</a> &middot; <a href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer" style="color:#fff">&#9749; Support MegaClip</a> &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
 <script>
@@ -194,10 +197,10 @@ about = f'''{head}<title>About &amp; Safety :: MegaClip</title><style>{css}
 <li>Games open in a new tab, walled off from this page, so a game's site can't touch MegaClip.</li>
 <li>Remember: once you click a game, you're on someone else's website. Never type a password or card number into a game you don't trust.</li></ul></div>
 <div class="panel"><h3>&#9749; Who pays for it?</h3><ul><li>MegaClip is free and has no ads. It's run by Digital Elmo, and kept going by people who chip in for a coffee. <a href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer"><b>Support MegaClip on Ko-fi</b></a>. Totally optional: every game stays free either way.</li></ul></div><div class="panel"><h3>&#128236; Suggest a game</h3><ul>
-<li>Made a browser game, or found one we're missing? <a href="{gh}/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer"><b>Send it in here</b></a>.</li></ul></div>
+<li>Made a browser game, or found one we're missing? <a href="{E(SUGGEST)}"><b>Email it to us</b></a> at <b>{MAIL}</b>, or <a href="{gh}/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer">post it on GitHub</a>.</li></ul></div>
 <div class="panel"><h3>Made a game that's listed here?</h3><ul>
 <li>All games, names and pictures belong to the people who made them.</li>
-<li>Want it removed, renamed, or the link changed? <a href="{gh}/issues/new?template=remove-or-fix.yml" target="_blank" rel="noopener noreferrer"><b>Ask here</b></a> and it'll be done quickly.</li></ul></div>
+<li>Want it removed, renamed, or the link changed? <a href="{E(FIXMAIL)}"><b>Email us</b></a> at <b>{MAIL}</b> (or <a href="{gh}/issues/new?template=remove-or-fix.yml" target="_blank" rel="noopener noreferrer">use GitHub</a>) and it'll be done quickly.</li></ul></div>
 </div>
 <footer>MegaClip &middot; last updated {updated} &middot; <a href="/" style="color:#fff">All games</a> &middot; <a href="{gh}" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div></body></html>'''
 open("about.html", "w").write(about)
