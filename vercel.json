@@ -7,7 +7,7 @@
    "headers": [
     {
      "key": "Content-Security-Policy",
-     "value": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-w+H+wUeLccdbObT5GKLTn8iBhLBL4YfRFBScT1QRQKE=' 'sha256-TL4tgkWj6r+/P96gPRK5OFGI1jt3if3HhbzbzNAhOyM='; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests"
+     "value": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-w+H+wUeLccdbObT5GKLTn8iBhLBL4YfRFBScT1QRQKE=' 'sha256-TL4tgkWj6r+/P96gPRK5OFGI1jt3if3HhbzbzNAhOyM=' 'sha256-uhzTblyfBO0reOohYurMwwArXTtGq9N4tTV1HKD4ZmE='; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests"
     },
     {
      "key": "X-Frame-Options",

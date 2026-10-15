@@ -25,13 +25,13 @@ Every game link opens in a new tab with `rel="noopener noreferrer"`, so the game
 
 ## Suggest a game, or ask for a removal
 
-Email **digital_elmo@proton.me** or [open an issue](https://github.com/DigitalElmo/megaclip/issues/new/choose) with:
+Use the **Suggest a game** button on [megaclip.games](https://megaclip.games) or [open an issue](https://github.com/DigitalElmo/megaclip/issues/new/choose) with:
 
 - the game's name and link
 - whether you made it
 - whether it works on a phone
 
-**Made a game that's listed and want it changed or taken down?** Email digital_elmo@proton.me or open an issue and it'll be dealt with quickly. All games, names and trademarks belong to their owners.
+**Made a game that's listed and want it changed or taken down?** Use the email button on [megaclip.games/about](https://megaclip.games/about) or open an issue and it'll be dealt with quickly. All games, names and trademarks belong to their owners.
 
 ## Build it yourself
 
