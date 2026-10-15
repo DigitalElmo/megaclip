@@ -25,7 +25,7 @@ Every game link opens in a new tab with `rel="noopener noreferrer"`, so the game
 
 ## Suggest a game, or ask for a removal
 
-[Open an issue](../../issues/new) with:
+[Open an issue](https://github.com/DigitalElmo/megaclip/issues/new) with:
 
 - the game's name and link
 - whether you made it
