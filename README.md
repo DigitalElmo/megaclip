@@ -57,6 +57,10 @@ Each entry in `games.json` looks like this:
 }
 ```
 
+## Support
+
+MegaClip is free with no ads. If you'd like to help keep it running: [ko-fi.com/digitalelmo](https://ko-fi.com/digitalelmo)
+
 ## Licence
 
 The code is MIT licensed (see [LICENSE](LICENSE)). The games belong to the people who made them.

@@ -127,6 +127,7 @@ marquee{{flex:1;color:#b71c1c;font-weight:bold}}
 .flash b{{display:block;color:#c62828;font-size:12px;margin-bottom:3px}}
 footer{{background:#0b3466;color:#bcd3f0;font-size:10px;text-align:center;padding:10px}}
 .hide{{display:none!important}}
+.kofi{{display:block;margin:8px 0 2px;text-align:center;font:900 13px "Trebuchet MS",Arial;color:#fff!important;text-decoration:none;padding:8px 10px;border-radius:20px;background:linear-gradient(#ff8a7a,#e8473b);border:2px solid #a8261d;text-shadow:1px 1px 0 #a8261d;box-shadow:0 2px 0 #a8261d}}.kofi:hover{{background:linear-gradient(#ffa597,#f25a4e)}}
 .viral{{border:3px solid #e53935;border-radius:10px;padding:0;box-shadow:0 0 0 3px #ffcc80}} .viral h2{{font-size:17px;padding:9px 11px;border-radius:7px 7px 0 0}}
 .viral .vsub{{margin:0;padding:7px 11px;background:#fff3e0;font-weight:bold;color:#b71c1c;border-bottom:1px solid #ffcc80}}
 .viral .grid{{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));border:0;background:#fffaf2}} .viral .g b{{font-size:12px}}
@@ -149,11 +150,11 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 <a class="play" href="{E(feat["url"])}" target="_blank" rel="noopener noreferrer">&#9654; PLAY NOW!</a></div></div>
 <p id="nores" class="hide" style="padding:10px;background:#ffefc2">No games found. Try another word!</p>
 {boxes}</main>
-<aside class="right"><div class="panel"><h3>&#9733; Top 10 Games</h3><ol>{toplist}</ol></div>
+<aside class="right"><div class="panel"><h3>&#9749; Keep MegaClip running</h3><ul><li>MegaClip is free and staying free. No ads, ever. If it gave you a new favourite game, you can buy me a coffee.<a class="kofi" href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer">&#9749; Support on Ko-fi</a></li></ul></div><div class="panel"><h3>&#9733; Top 10 Games</h3><ol>{toplist}</ol></div>
 <div class="panel"><h3>New This Week</h3><ul>{freshlist}</ul></div>
 <div class="panel"><h3>&#128236; Got a game? Suggest it!</h3><ul><li>Made a browser game, or found one we\'re missing? <a href="https://github.com/DigitalElmo/megaclip/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer"><b>Send it in here</b></a>.</li><li>Tell us the name, the link, whether you made it and if it works on a phone.</li></ul></div><div class="panel"><h3>&#128737; Is MegaClip safe?</h3><ul><li>Just links. No downloads, no ads, no cookies, no logins. <a href="/about"><b>See how to check it yourself</b></a>.</li></ul></div><div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
 </div>
-<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="/about" style="color:#fff">About &amp; Safety</a> &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
+<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="/about" style="color:#fff">About &amp; Safety</a> &middot; <a href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer" style="color:#fff">&#9749; Support MegaClip</a> &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
 <script>
 const q=document.getElementById('q'),cards=[...document.querySelectorAll('.g')],boxes=[...document.querySelectorAll('.box')],nr=document.getElementById('nores');
 const ph=document.getElementById('ph');
@@ -192,7 +193,7 @@ about = f'''{head}<title>About &amp; Safety :: MegaClip</title><style>{css}
 <li>Every link is checked by a robot once a week. Dead links, and links that suddenly send you to a different website, get fixed or removed.</li>
 <li>Games open in a new tab, walled off from this page, so a game's site can't touch MegaClip.</li>
 <li>Remember: once you click a game, you're on someone else's website. Never type a password or card number into a game you don't trust.</li></ul></div>
-<div class="panel"><h3>&#128236; Suggest a game</h3><ul>
+<div class="panel"><h3>&#9749; Who pays for it?</h3><ul><li>MegaClip is free and has no ads. It's run by Digital Elmo, and kept going by people who chip in for a coffee. <a href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer"><b>Support MegaClip on Ko-fi</b></a>. Totally optional: every game stays free either way.</li></ul></div><div class="panel"><h3>&#128236; Suggest a game</h3><ul>
 <li>Made a browser game, or found one we're missing? <a href="{gh}/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer"><b>Send it in here</b></a>.</li></ul></div>
 <div class="panel"><h3>Made a game that's listed here?</h3><ul>
 <li>All games, names and pictures belong to the people who made them.</li>
