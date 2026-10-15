@@ -63,8 +63,8 @@ footer{background:#0b3466;color:#bcd3f0;font-size:10px;text-align:center;padding
 .viral .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));border:0;background:#fffaf2} .viral .g b{font-size:12px}
 nav a.hot{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text-shadow:1px 1px 0 #7f0000}
 @media (max-width:820px){.cols{grid-template-columns:minmax(0,1fr)}main{min-width:0}.slogan{font-size:10px;right:90px}.feat img{max-width:320px}.grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}.side,.right{order:2}.feat{grid-template-columns:1fr}.logo{font-size:38px}.badge{width:70px;height:70px;font-size:11px}marquee{display:none}.viral .grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.viral h2{font-size:14px}.bar{flex-wrap:wrap}}
-.strip{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px 10px;background:linear-gradient(#fff8e1,#ffe9a8);border-bottom:2px solid #ff9a00}
-.strip a,.strip button{font:900 13px "Trebuchet MS",Arial,sans-serif;color:#fff;text-decoration:none;padding:7px 16px;border-radius:20px;cursor:pointer;border:2px solid;box-shadow:0 2px 0 rgba(0,0,0,.35);text-shadow:1px 1px 0 rgba(0,0,0,.35)}
+.strip{display:flex;gap:6px;flex:0 0 auto}.sm{display:none}
+.strip a,.strip button{font:900 12px "Trebuchet MS",Arial,sans-serif;color:#fff;text-decoration:none;padding:4px 14px;border-radius:14px;cursor:pointer;border:1px solid;box-shadow:0 1px 0 rgba(0,0,0,.35);text-shadow:1px 1px 0 rgba(0,0,0,.3);white-space:nowrap}
 .strip .s1{background:linear-gradient(#ff8a7a,#e8473b);border-color:#a8261d}.strip .s2{background:linear-gradient(#5aa2ec,#1f63b8);border-color:#0b3466}.strip .s3{background:linear-gradient(#7ee05a,#2f9e17);border-color:#1f6e0e}
 .strip a:hover,.strip button:hover{filter:brightness(1.12)}
 .mailbox{margin:10px auto;max-width:560px;border:2px solid #1f63b8;border-radius:9px;background:#f2f8ff;padding:10px 14px;text-align:center;font-size:12px}
@@ -72,6 +72,13 @@ nav a.hot{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text-
 .mailbox .open{display:inline-block;font:900 13px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px 14px;border-radius:18px;background:linear-gradient(#5aa2ec,#1f63b8);border:2px solid #0b3466;margin:2px}
 .mailbox .copy{font:bold 12px Verdana;padding:5px 12px;border-radius:18px;background:linear-gradient(#fff,#ddd);border:2px solid #999;cursor:pointer;margin:2px}
 [hidden]{display:none!important}
+@media (max-width:820px){.lg{display:none}.sm{display:inline}
+ header{height:84px}header:before{bottom:-72px}.logo{font-size:32px!important;top:12px;left:14px}.slogan{top:56px;left:16px;font-size:9px!important;right:84px}
+ .badge{width:58px!important;height:58px!important;font-size:9px!important;top:12px;right:12px}
+ nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:5px 6px 0}nav::-webkit-scrollbar{display:none}nav a{flex:0 0 auto;font-size:11px;padding:6px 10px 5px}
+ .bar{flex-wrap:wrap;gap:6px;padding:5px 8px}.bar input{flex:1 1 0;min-width:0}.bar button{padding:3px 8px}.ph{font-size:10px}
+ .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1 1 100%;padding:2px 0 1px}.strip a,.strip button{padding:5px 4px;font-size:12px;text-align:center}
+ .mailbox{margin:8px}}
 
 .doc{max-width:820px;margin:0 auto;padding:16px 14px 24px;font-size:13px;line-height:1.55}.doc .panel ul{list-style:disc;padding-left:26px}.doc .panel li{padding:3px 0}
 .linkbtn{background:none;border:0;padding:0;color:#0645ad;text-decoration:underline;cursor:pointer;font:inherit}.doc h1{font:bold 22px "Trebuchet MS",Verdana;color:#c43e00;margin:0 0 6px}.doc p.lead{margin:0 0 14px}</style></head><body><div class="wrap">

@@ -13,15 +13,22 @@ document.querySelectorAll('[data-reveal]').forEach(b=>b.addEventListener('click'
 box.querySelector('.addr').textContent=m;box.querySelector('.open').href='mailto:'+m+'?subject='+encodeURIComponent(SUB[k][0])+'&body='+encodeURIComponent(SUB[k][1]);box.hidden=!box.hidden;if(!box.hidden)box.scrollIntoView({block:'nearest',behavior:'smooth'})}));
 document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{navigator.clipboard.writeText(em()).then(()=>{b.textContent='Copied!'})}));
 </script>"""
-MAILCSS = """.strip{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px 10px;background:linear-gradient(#fff8e1,#ffe9a8);border-bottom:2px solid #ff9a00}
-.strip a,.strip button{font:900 13px "Trebuchet MS",Arial,sans-serif;color:#fff;text-decoration:none;padding:7px 16px;border-radius:20px;cursor:pointer;border:2px solid;box-shadow:0 2px 0 rgba(0,0,0,.35);text-shadow:1px 1px 0 rgba(0,0,0,.35)}
+MAILCSS = """.strip{display:flex;gap:6px;flex:0 0 auto}.sm{display:none}
+.strip a,.strip button{font:900 12px "Trebuchet MS",Arial,sans-serif;color:#fff;text-decoration:none;padding:4px 14px;border-radius:14px;cursor:pointer;border:1px solid;box-shadow:0 1px 0 rgba(0,0,0,.35);text-shadow:1px 1px 0 rgba(0,0,0,.3);white-space:nowrap}
 .strip .s1{background:linear-gradient(#ff8a7a,#e8473b);border-color:#a8261d}.strip .s2{background:linear-gradient(#5aa2ec,#1f63b8);border-color:#0b3466}.strip .s3{background:linear-gradient(#7ee05a,#2f9e17);border-color:#1f6e0e}
 .strip a:hover,.strip button:hover{filter:brightness(1.12)}
 .mailbox{margin:10px auto;max-width:560px;border:2px solid #1f63b8;border-radius:9px;background:#f2f8ff;padding:10px 14px;text-align:center;font-size:12px}
 .mailbox .addr{font-size:15px;color:#0b3466;word-break:break-all}.mailbox p{margin:4px 0 8px}
 .mailbox .open{display:inline-block;font:900 13px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px 14px;border-radius:18px;background:linear-gradient(#5aa2ec,#1f63b8);border:2px solid #0b3466;margin:2px}
 .mailbox .copy{font:bold 12px Verdana;padding:5px 12px;border-radius:18px;background:linear-gradient(#fff,#ddd);border:2px solid #999;cursor:pointer;margin:2px}
-[hidden]{display:none!important}"""
+[hidden]{display:none!important}
+@media (max-width:820px){.lg{display:none}.sm{display:inline}
+ header{height:84px}header:before{bottom:-72px}.logo{font-size:32px!important;top:12px;left:14px}.slogan{top:56px;left:16px;font-size:9px!important;right:84px}
+ .badge{width:58px!important;height:58px!important;font-size:9px!important;top:12px;right:12px}
+ nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:5px 6px 0}nav::-webkit-scrollbar{display:none}nav a{flex:0 0 auto;font-size:11px;padding:6px 10px 5px}
+ .bar{flex-wrap:wrap;gap:6px;padding:5px 8px}.bar input{flex:1 1 0;min-width:0}.bar button{padding:3px 8px}.ph{font-size:10px}
+ .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1 1 100%;padding:2px 0 1px}.strip a,.strip button{padding:5px 4px;font-size:12px;text-align:center}
+ .mailbox{margin:8px}}"""
 def MAILBOX(k, intro):
     return (f'<div class="mailbox" id="mail-{k}" hidden><p>{intro}</p><p>&#128231; <b class="addr"></b></p>'
             '<a class="open" href="#">&#9993; Open my email app</a> <button type="button" class="copy">Copy address</button></div>')
@@ -163,8 +170,7 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 <div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>
 <nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}</nav>
 <div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>
-<label class="ph"><input type="checkbox" id="ph"> &#128241; Phone-friendly only</label><marquee scrollamount="4">&#9733; NEW GAMES ADDED! &#9733; {ticker} &#9733;</marquee></div>
-<div class="strip"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support MegaClip</a><button type="button" class="s2" data-reveal="s">&#128236; Suggest a game</button><a class="s3" href="/about">&#128737; Is it safe?</a></div>
+<label class="ph"><input type="checkbox" id="ph"> &#128241; Phone-friendly<span class="lg"> only</span></label><marquee scrollamount="4">&#9733; NEW GAMES ADDED! &#9733; {ticker} &#9733;</marquee><div class="strip"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><button type="button" class="s2" data-reveal="s">&#128236; Suggest<span class="lg"> a game</span></button><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>
 {SUGBOX}
 <div class="cols">
 <aside class="side"><h3>Game Categories</h3><ul><li><a href="#viral"><span class="ic" style="--c:#e53935"></span>&#128293; The Viral {len(viral)}</a> <small>({len(viral)})</small></li>{side}</ul>
