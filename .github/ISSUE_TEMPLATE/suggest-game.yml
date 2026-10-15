@@ -1,0 +1,38 @@
+name: "🎮 Suggest a game"
+description: Know a browser game MegaClip is missing? Send it in.
+title: "Suggest: "
+labels: ["suggestion"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Game name
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link where you play it
+      description: The page where the game starts, not a download.
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: maker
+    attributes:
+      label: Did you make it?
+      options: ["Yes, it's mine", "No, I just love it"]
+    validations:
+      required: true
+  - type: dropdown
+    id: phone
+    attributes:
+      label: Does it work on a phone?
+      options: ["Yes", "No, computer only", "Not sure"]
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Anything else? (optional)
+      description: What makes it fun, or a post where it blew up.

@@ -1,0 +1,23 @@
+name: "🛠 Remove, rename or fix a game"
+description: Made a game that's listed? Or found a broken link? Tell us here.
+title: "Fix: "
+labels: ["fix"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Which game?
+    validations:
+      required: true
+  - type: dropdown
+    id: what
+    attributes:
+      label: What should happen?
+      options: ["Remove it (I own it)", "Change the link", "Change the name or picture", "The link is broken", "The link looks unsafe"]
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: The new link or name, or what went wrong.

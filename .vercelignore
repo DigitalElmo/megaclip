@@ -6,3 +6,6 @@ package.json
 vercel.json
 README.md
 LICENSE
+.github
+linkcheck.py
+linkcheck-report.md

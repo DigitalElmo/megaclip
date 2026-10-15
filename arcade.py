@@ -1,6 +1,6 @@
 """Build index.html from games.json in a mid-2000s web-games-portal style.
 Run: python3 arcade.py  (then vercel deploy --prod --yes)"""
-import json, html
+import json, html, re
 from datetime import date
 
 E = html.escape
@@ -151,9 +151,9 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 {boxes}</main>
 <aside class="right"><div class="panel"><h3>&#9733; Top 10 Games</h3><ol>{toplist}</ol></div>
 <div class="panel"><h3>New This Week</h3><ul>{freshlist}</ul></div>
-<div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
+<div class="panel"><h3>&#128236; Got a game? Suggest it!</h3><ul><li>Made a browser game, or found one we\'re missing? <a href="https://github.com/DigitalElmo/megaclip/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer"><b>Send it in here</b></a>.</li><li>Tell us the name, the link, whether you made it and if it works on a phone.</li></ul></div><div class="panel"><h3>&#128737; Is MegaClip safe?</h3><ul><li>Just links. No downloads, no ads, no cookies, no logins. <a href="/about"><b>See how to check it yourself</b></a>.</li></ul></div><div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
 </div>
-<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
+<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="/about" style="color:#fff">About &amp; Safety</a> &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
 <script>
 const q=document.getElementById('q'),cards=[...document.querySelectorAll('.g')],boxes=[...document.querySelectorAll('.box')],nr=document.getElementById('nores');
 const ph=document.getElementById('ph');
@@ -163,6 +163,43 @@ ph.addEventListener('change',f);
 q.addEventListener('input',f);document.getElementById('go').onclick=f;
 </script></body></html>'''
 open("index.html", "w").write(page)
+
+css = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
+head = page.split("<title>")[0].replace('<link rel="canonical" href="https://megaclip.games/">', '<link rel="canonical" href="https://megaclip.games/about">').replace(
+    'content="MegaClip: free browser games, no downloads. Hand-picked new web games, retro classics and fan projects you can play in a tab."',
+    'content="How MegaClip works, why it is safe, and how to suggest a game or ask for one to be removed."')
+gh = "https://github.com/DigitalElmo/megaclip"
+about = f'''{head}<title>About &amp; Safety :: MegaClip</title><style>{css}
+.doc{{max-width:820px;margin:0 auto;padding:16px 14px 24px;font-size:13px;line-height:1.55}}.doc .panel ul{{list-style:disc;padding-left:26px}}.doc .panel li{{padding:3px 0}}
+.doc h1{{font:bold 22px "Trebuchet MS",Verdana;color:#c43e00;margin:0 0 6px}}.doc p.lead{{margin:0 0 14px}}</style></head><body><div class="wrap">
+<header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div>
+<a href="/" style="text-decoration:none"><div class="logo">Mega<span>Clip</span></div></a><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>
+<div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>
+<nav><a class="hot" href="/">&#9664; Back to the games</a></nav>
+<div class="doc"><h1>About &amp; Safety</h1>
+<p class="lead">MegaClip is a hand-picked list of {len(games)} games you can play straight in your browser. It's like a giant bookmarks page: every game runs on its maker's own website, and MegaClip just points you there.</p>
+<div class="panel"><h3>What MegaClip does NOT do</h3><ul>
+<li>No downloads. MegaClip never gives you a file to install or run.</li>
+<li>No game files. Nothing is hosted here except this page and the little thumbnail pictures.</li>
+<li>No ads, no cookies, no accounts, no logins, no tracking pixels.</li>
+<li>We only count visits (Vercel Web Analytics, which uses no cookies and doesn't identify you).</li></ul></div>
+<div class="panel"><h3>Don't take our word for it: check it yourself</h3><ul>
+<li><a href="https://developer.mozilla.org/en-US/observatory/analyze?host=megaclip.games" target="_blank" rel="noopener noreferrer"><b>Mozilla Observatory</b></a>: the security grade for this site (it scores A+).</li>
+<li><a href="https://transparencyreport.google.com/safe-browsing/search?url=megaclip.games" target="_blank" rel="noopener noreferrer"><b>Google Safe Browsing</b></a>: Google's check for unsafe sites.</li>
+<li><a href="https://www.virustotal.com/gui/search/megaclip.games" target="_blank" rel="noopener noreferrer"><b>VirusTotal</b></a>: dozens of antivirus scanners at once.</li>
+<li><a href="{gh}" target="_blank" rel="noopener noreferrer"><b>The code on GitHub</b></a>: every line of this site is public, so anyone can read exactly what it does.</li></ul></div>
+<div class="panel"><h3>How we keep the links healthy</h3><ul>
+<li>Every link is checked by a robot once a week. Dead links, and links that suddenly send you to a different website, get fixed or removed.</li>
+<li>Games open in a new tab, walled off from this page, so a game's site can't touch MegaClip.</li>
+<li>Remember: once you click a game, you're on someone else's website. Never type a password or card number into a game you don't trust.</li></ul></div>
+<div class="panel"><h3>&#128236; Suggest a game</h3><ul>
+<li>Made a browser game, or found one we're missing? <a href="{gh}/issues/new?template=suggest-game.yml" target="_blank" rel="noopener noreferrer"><b>Send it in here</b></a>.</li></ul></div>
+<div class="panel"><h3>Made a game that's listed here?</h3><ul>
+<li>All games, names and pictures belong to the people who made them.</li>
+<li>Want it removed, renamed, or the link changed? <a href="{gh}/issues/new?template=remove-or-fix.yml" target="_blank" rel="noopener noreferrer"><b>Ask here</b></a> and it'll be done quickly.</li></ul></div>
+</div>
+<footer>MegaClip &middot; last updated {updated} &middot; <a href="/" style="color:#fff">All games</a> &middot; <a href="{gh}" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div></body></html>'''
+open("about.html", "w").write(about)
 # Security headers: allow only this page's own inline scripts (by hash), no 'unsafe-inline' for scripts
 import re, hashlib, base64
 hashes = " ".join("'sha256-" + base64.b64encode(hashlib.sha256(m.encode()).digest()).decode() + "'"
@@ -173,7 +210,7 @@ hdr = [("Content-Security-Policy", csp), ("X-Frame-Options", "DENY"), ("X-Conten
        ("Referrer-Policy", "strict-origin-when-cross-origin"), ("Cross-Origin-Resource-Policy", "same-origin"),
        ("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()"),
        ("Strict-Transport-Security", "max-age=63072000; includeSubDomains")]
-json.dump({"$schema": "https://openapi.vercel.sh/vercel.json",
+json.dump({"$schema": "https://openapi.vercel.sh/vercel.json", "cleanUrls": True,
            "headers": [{"source": "/(.*)", "headers": [{"key": k, "value": v} for k, v in hdr]}]},
           open("vercel.json", "w"), indent=1)
 print("ok", len(games), "games,", len(cats), "categories")

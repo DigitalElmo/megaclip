@@ -245,18 +245,6 @@
   "viral": 16
  },
  {
-  "url": "https://webwars.link",
-  "img": "shots/24.jpg",
-  "name": "Hedgewars",
-  "host": "webwars.link",
-  "note": "Site not answering 12 Oct",
-  "cat": "strategy",
-  "added": "2026-10-08",
-  "top": true,
-  "mobile": "maybe",
-  "mobile_why": "Site did not load when checked"
- },
- {
   "url": "https://wasmarcade.com/",
   "img": "shots/25.jpg",
   "name": "More GTA / Minecraft",
@@ -943,10 +931,10 @@
   "mobile_why": "On-screen stick and buttons on phones"
  },
  {
-  "url": "https://2004scape.org/",
+  "url": "https://2004.lostcity.rs/",
   "img": "shots/n059.jpg",
   "name": "RuneScape 2004 (2004Scape)",
-  "host": "2004scape.org",
+  "host": "2004.lostcity.rs",
   "note": "Free",
   "cat": "multi",
   "added": "2026-10-10",
@@ -3615,19 +3603,6 @@
   "mobile": "maybe",
   "mobile_why": "viewport set",
   "hunt_rank": 103
- },
- {
-  "url": "https://waqk12674.itch.io/katana",
-  "img": "shots/h104.jpg",
-  "name": "KATANA",
-  "host": "waqk12674.itch.io",
-  "note": "4.1K views on X",
-  "cat": "sports",
-  "added": "2026-10-14",
-  "top": false,
-  "mobile": "maybe",
-  "mobile_why": "maybe",
-  "hunt_rank": 104
  },
  {
   "url": "https://dilifighter.vercel.app",
