@@ -1,0 +1,6 @@
+.vercel
+.env*
+.site-password
+shots/
+node_modules/
+.DS_Store

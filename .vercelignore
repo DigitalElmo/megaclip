@@ -1,0 +1,8 @@
+.site-password
+.env.local
+games.json
+arcade.py
+package.json
+vercel.json
+README.md
+LICENSE
