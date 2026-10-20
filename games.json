@@ -4289,29 +4289,6 @@
   "slug": "accra-living"
  },
  {
-  "url": "https://www.champman2627.co.uk/play",
-  "img": "shots/h006.jpg",
-  "name": "Championship Manager 26/27",
-  "host": "champman2627.co.uk",
-  "note": "1.58M views on X",
-  "cat": "sports",
-  "added": "2026-10-14",
-  "top": false,
-  "mobile": "maybe",
-  "mobile_why": "menu-heavy management game",
-  "hunt_rank": 6,
-  "desc": "A browser take on the classic Championship Manager football management formula, for the 26/27 season. Note: currently offline.",
-  "tags": [
-   "football",
-   "management",
-   "sports",
-   "simulation"
-  ],
-  "based_on": "",
-  "desc_conf": "low",
-  "slug": "championship-manager-26-27"
- },
- {
   "url": "https://destroy.spritefusion.com",
   "img": "shots/h007.jpg",
   "name": "Destroy Any Website",
@@ -4655,28 +4632,6 @@
   "based_on": "",
   "desc_conf": "high",
   "slug": "melee-royale"
- },
- {
-  "url": "https://tenderloin.nanocorp.app",
-  "img": "shots/h022.jpg",
-  "name": "Tenderloin: Night Shift",
-  "host": "tenderloin.nanocorp.app",
-  "note": "189K views on X",
-  "cat": "shoot",
-  "added": "2026-10-14",
-  "top": false,
-  "mobile": "no",
-  "mobile_why": "FPS",
-  "hunt_rank": 22,
-  "desc": "A viral night-shift shooter from X set in San Francisco's Tenderloin. The site is currently unavailable.",
-  "tags": [
-   "shooter",
-   "action",
-   "original"
-  ],
-  "based_on": "",
-  "desc_conf": "low",
-  "slug": "tenderloin-night-shift"
  },
  {
   "url": "https://nothalo.lol/",
