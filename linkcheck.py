@@ -40,6 +40,21 @@ out = [f"# MegaClip link check, {datetime.now():%d %b %Y %H:%M}", "",
 for title, rows in (("Need a look (dead, or now go to a different website)", bad), ("Blocked the robot (open them yourself to be sure)", soft)):
     if rows:
         out += [f"## {title}", ""] + [f"- **{g['name']}** ({s}): {why}  \n  {g['url']}" for g, s, why in rows] + [""]
+# PC Ports: every fan-project link in decomps.json (GitHub sends 404 for deleted repos)
+import os
+dsrc = src.rsplit("/", 1)[0] + "/decomps.json" if "/" in src else "decomps.json"
+try:
+    decomps = json.load(urllib.request.urlopen(dsrc) if dsrc.startswith("http") else open(dsrc))
+except Exception:
+    decomps = None
+if decomps:
+    links = [dict(name=f'{d["title"]}: {l["label"]}', url=l["url"]) for d in decomps for l in d["links"]]
+    with cf.ThreadPoolExecutor(12) as ex:
+        dres = list(ex.map(check, links))
+    dbad = [r for r in dres if r[1] == "dead"]
+    out += ["## PC Ports links", "", f"{len(links)} project links checked: {len(dbad)} dead (remove them from the Decomp Atlas and re-export)."]
+    out += [f"- **{g['name']}**: {why}  \n  {g['url']}" for g, s, why in dbad] + [""]
+    bad += dbad
 open("linkcheck-report.md", "w").write("\n".join(out))
 print(out[2])
 sys.exit(1 if bad else 0)

@@ -10,7 +10,7 @@ MegaClip is a **list of links**. It's like a big bookmarks page.
 
 - It hosts **no games** and **no game files**. Every game runs on its own maker's website.
 - It has **no ads, no trackers, no cookies, no accounts and no logins**.
-- The whole site is one static HTML page, built from [`games.json`](games.json) by [`arcade.py`](arcade.py). You can read every line of it here.
+- The whole site is static HTML, built from [`games.json`](games.json) and [`decomps.json`](decomps.json) by [`arcade.py`](arcade.py) and [`pages.py`](pages.py). You can read every line of it here.
 
 ## Is it safe?
 
@@ -36,7 +36,8 @@ Use the **Suggest a game** button on [megaclip.games](https://megaclip.games) or
 ## Build it yourself
 
 ```sh
-python3 arcade.py       # rebuilds index.html and vercel.json from games.json
+python3 arcade.py       # rebuilds index.html, every game/category/PC Ports page, sitemap.xml and vercel.json
+                        # (the generated game/, decomp/ and category/ pages aren't committed; this command makes them)
 ```
 
 Thumbnails (`shots/`) aren't in this repo because they come from each game's own page. The build still works without them.

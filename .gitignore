@@ -5,3 +5,9 @@ shots/
 node_modules/
 .DS_Store
 linkcheck-report.md
+game/
+decomp/
+category/
+decomps.html
+search-decomps.json
+__pycache__/

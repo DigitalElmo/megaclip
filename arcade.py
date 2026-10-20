@@ -54,6 +54,18 @@ LABEL = {k: l for k, l, _ in CATS}
 COL = {k: c for k, _, c in CATS}
 
 games = json.load(open("games.json"))
+import unicodedata
+def slugify(t):
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", t).strip("-")[:70] or "game"
+used = {g["slug"] for g in games if g.get("slug")}
+for g in games:  # each game keeps its page address forever once given one
+    if not g.get("slug"):
+        s, i = slugify(g["name"]), 2
+        while s in used: s, i = f"{slugify(g['name'])}-{i}", i + 1
+        g["slug"] = s; used.add(s)
+json.dump(games, open("games.json", "w"), ensure_ascii=False, indent=1)
+decomps = json.load(open("decomps.json"))
 newest = max(g["added"] for g in games)
 for g in games:
     g["is_new"] = g["added"] == newest
@@ -67,10 +79,10 @@ def thumb(g):
     mob = {"yes": f'<em class="mb y" title="{why}">&#128241; Phone OK</em>',
            "no": f'<em class="mb n" title="{why}">&#128187; Computer only</em>',
            "maybe": f'<em class="mb m" title="{why}">&#128241;? Not sure</em>'}[m]
-    return (f'<a class="g" href="{E(g["url"])}" target="_blank" rel="noopener noreferrer" '
-            f'data-m="{m}" data-s="{E((g["name"] + " " + g["host"] + " " + LABEL[g["cat"]]).lower())}">'
-            f'<span class="t"><img src="{E(g["img"])}" alt="" loading="lazy">{new}{mob}</span>'
-            f'<b>{E(g["name"])}</b>{note}</a>')
+    search = " ".join([g["name"], g["host"], LABEL[g["cat"]], g.get("based_on", ""), " ".join(g.get("tags", []))]).lower()
+    return (f'<div class="c" data-m="{m}" data-s="{E(search)}"><a class="g" href="{E(g["url"])}" target="_blank" rel="noopener noreferrer">'
+            f'<span class="t"><img src="/{E(g["img"])}" alt="" loading="lazy">{new}{mob}</span>'
+            f'<b>{E(g["name"])}</b>{note}</a><a class="inf" href="/game/{g["slug"]}">&#9432; info</a></div>')
 
 
 def box(key, title, items, colour):
@@ -143,7 +155,7 @@ marquee{{flex:1;color:#b71c1c;font-weight:bold}}
 .box h2 small{{float:right;font:normal 11px Verdana;opacity:.9}}
 .box h2 .ic{{background:#fff}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px 10px;border:1px solid #c9d9ea;border-top:0;padding:10px;border-radius:0 0 7px 7px;background:#fff}}
-.g{{text-decoration:none;color:#0645ad;display:block}}
+.g{{text-decoration:none;color:#0645ad;display:block}}.c{{min-width:0}}.inf{{font-size:10px;color:#777;text-decoration:none}}.inf:hover{{color:#e65100;text-decoration:underline}}
 .t{{display:block;position:relative;border:1px solid #9cb6d2;padding:2px;background:#fff;box-shadow:1px 1px 0 #c9d9ea}}
 .t img{{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#dde}}
 .g:hover .t{{border-color:#ff8a00;box-shadow:0 0 0 2px #ffcc66}}
@@ -168,33 +180,27 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 <header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div><div class="cloud" style="left:52%;top:12px;width:44px"></div>
 <div class="logo">Mega<span>Clip</span></div><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>
 <div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>
-<nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}</nav>
+<nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}<a href="/decomps">&#128190; PC Ports</a></nav>
 <div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>
 <label class="ph"><input type="checkbox" id="ph"> &#128241; Phone-friendly<span class="lg"> only</span></label><marquee scrollamount="4">&#9733; NEW GAMES ADDED! &#9733; {ticker} &#9733;</marquee><div class="strip"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><button type="button" class="s2" data-reveal="s">&#128236; Suggest<span class="lg"> a game</span></button><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>
 {SUGBOX}
 <div class="cols">
-<aside class="side"><h3>Game Categories</h3><ul><li><a href="#viral"><span class="ic" style="--c:#e53935"></span>&#128293; The Viral {len(viral)}</a> <small>({len(viral)})</small></li>{side}</ul>
+<aside class="side"><h3>Game Categories</h3><ul><li><a href="#viral"><span class="ic" style="--c:#e53935"></span>&#128293; The Viral {len(viral)}</a> <small>({len(viral)})</small></li>{side}<li><a href="/decomps"><span class="ic" style="--c:#0b3466"></span>&#128190; PC Ports</a> <small>({len(decomps):,})</small></li></ul>
 <div class="panel" style="margin-top:10px"><div class="flash"><b>Play them while you can!</b>Some of these games get taken down by the big publishers, so if one stops working, try another.</div></div></aside>
-<main>
+<main id="home">
 {viralbox}
-<div class="feat"><img src="{E(feat["img"])}" alt=""><div><h2>Featured Game: {E(feat["name"])}</h2>
+<div class="feat"><img src="/{E(feat["img"])}" alt=""><div><h2>Featured Game: {E(feat["name"])}</h2>
 <p>{E(feat.get("blurb","The one that started it all. Black Ops zombies, running right in your web browser. No install, no disc, just click and play."))}</p>
 <a class="play" href="{E(feat["url"])}" target="_blank" rel="noopener noreferrer">&#9654; PLAY NOW!</a></div></div>
 <p id="nores" class="hide" style="padding:10px;background:#ffefc2">No games found. Try another word!</p>
-{boxes}</main>
+{boxes}
+<section class="box" id="dbox" hidden><h2 style="--c:#0b3466"><span class="ic"></span>&#128190; PC Ports: download, bring your own copy of the game<small id="dn"></small></h2><ul class="dlist" id="dl"></ul></section></main>
 <aside class="right"><div class="panel"><h3>&#9749; Keep MegaClip running</h3><ul><li>MegaClip is free and staying free. No ads, ever. If it gave you a new favourite game, you can buy me a coffee.<a class="kofi" href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer">&#9749; Support on Ko-fi</a></li></ul></div><div class="panel"><h3>&#9733; Top 10 Games</h3><ol>{toplist}</ol></div>
 <div class="panel"><h3>New This Week</h3><ul>{freshlist}</ul></div>
 <div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
 </div>
 <footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; <a href="/about" style="color:#fff">About &amp; Safety</a> &middot; <a href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer" style="color:#fff">&#9749; Support MegaClip</a> &middot; <a href="https://github.com/DigitalElmo/megaclip" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>
-<script>
-const q=document.getElementById('q'),cards=[...document.querySelectorAll('.g')],boxes=[...document.querySelectorAll('.box')],nr=document.getElementById('nores');
-const ph=document.getElementById('ph');
-function f(){{const v=q.value.trim().toLowerCase(),po=ph.checked;let any=0;cards.forEach(c=>c.classList.toggle('hide',(!!v&&!c.dataset.s.includes(v))||(po&&c.dataset.m!=='yes')));
-boxes.forEach(b=>{{const n=b.querySelectorAll('.g:not(.hide)').length;b.classList.toggle('hide',!n);any+=n}});nr.classList.toggle('hide',!!any||!(v||po))}}
-ph.addEventListener('change',f);
-q.addEventListener('input',f);document.getElementById('go').onclick=f;
-</script>{MAILJS}</body></html>'''
+<script src="/search.js" defer></script>{MAILJS}</body></html>'''
 open("index.html", "w").write(page)
 
 css = re.search(r"<style>(.*?)</style>", page, re.S).group(1)
@@ -233,10 +239,27 @@ about = f'''{head}<title>About &amp; Safety :: MegaClip</title><style>{css}
 </div>
 <footer>MegaClip &middot; last updated {updated} &middot; <a href="/" style="color:#fff">All games</a> &middot; <a href="{gh}" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>{MAILJS}</body></html>'''
 open("about.html", "w").write(about)
-# Security headers: allow only this page's own inline scripts (by hash), no 'unsafe-inline' for scripts
+# Game pages, category pages, PC Ports section, search data (pages.py)
+import pages
+sub_header = (f'<header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div>'
+              f'<a href="/" style="text-decoration:none"><div class="logo">Mega<span>Clip</span></div></a><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>'
+              f'<div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>'
+              '<nav><a class="hot" href="/">&#9664; All games</a>' + "".join(f'<a href="/category/{k}">{E(l)}</a>' for k, l, _ in cats if k != "new")
+              + '<a href="/decomps">&#128190; PC Ports</a></nav>')
+sub_bar = (f'<div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>'
+           f'<div class="strip" style="margin-left:auto"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>')
+sub_footer = (f'<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; '
+              f'<a href="/" style="color:#fff">All games</a> &middot; <a href="/decomps" style="color:#fff">PC Ports</a> &middot; <a href="/about" style="color:#fff">About &amp; Safety</a></footer>')
+extra, paths = pages.build(games, decomps, css, sub_header, sub_bar, sub_footer, thumb, CATS, LABEL)
+for g in games:
+    g.pop("_decomp", None)
+# Sitemap: home, about, and every generated page
+open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + "".join(f"<url><loc>https://megaclip.games{p}</loc></url>\n" for p in ["/", "/about"] + paths) + "</urlset>\n")
+# Security headers: allow only these pages' own inline scripts (by hash), no 'unsafe-inline' for scripts
 import re, hashlib, base64
 hashes = " ".join("'sha256-" + base64.b64encode(hashlib.sha256(m.encode()).digest()).decode() + "'"
-                  for m in dict.fromkeys(re.findall(r"<script>(.*?)</script>", page + about, re.S)))
+                  for m in dict.fromkeys(re.findall(r"<script>(.*?)</script>", page + about + "".join(extra), re.S)))
 csp = ("default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' " + hashes +
        "; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests")
 hdr = [("Content-Security-Policy", csp), ("X-Frame-Options", "DENY"), ("X-Content-Type-Options", "nosniff"),
@@ -246,4 +269,4 @@ hdr = [("Content-Security-Policy", csp), ("X-Frame-Options", "DENY"), ("X-Conten
 json.dump({"$schema": "https://openapi.vercel.sh/vercel.json", "cleanUrls": True,
            "headers": [{"source": "/(.*)", "headers": [{"key": k, "value": v} for k, v in hdr]}]},
           open("vercel.json", "w"), indent=1)
-print("ok", len(games), "games,", len(cats), "categories")
+print("ok", len(games), "games,", len(cats), "categories,", len(paths), "extra pages")
