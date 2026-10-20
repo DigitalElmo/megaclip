@@ -10,7 +10,71 @@ STATUS = {"easy": ("Easy install", "#2e9e2e", "A ready-made PC version with a si
           "play": ("PC version", "#1f63b8", "Fans have made a PC version. Some are still early, so read the project page first."),
           "code": ("Code only", "#666", "The rebuilt code is public, but you'd have to build the game yourself."),
           "wip": ("In progress", "#b98900", "Fans are still working on it.")}
-PAGE_CSS = """
+FAM_COL = {"Nintendo": "#e60012", "PlayStation": "#1f4fbf", "Xbox": "#107c10", "SEGA": "#1769c2", "PC and DOS": "#7a4f2e",
+           "Arcade": "#ff6f00", "Old home computers": "#8e24aa", "Phones": "#00897b", "Other": "#546e7a"}
+FAM_ORDER = ["Nintendo", "PlayStation", "Xbox", "SEGA", "PC and DOS", "Arcade", "Old home computers", "Phones", "Other"]
+CART_CSS = """
+.carts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px 12px;padding:12px;border:1px solid #c9d9ea;border-top:0;border-radius:0 0 7px 7px;background:#eef3f9}
+.cart{position:relative;display:flex;flex-direction:column;background:linear-gradient(#3b4150,#23262f);border-radius:12px 12px 5px 5px;padding:14px 8px 8px;box-shadow:0 3px 0 #11131a,0 5px 10px rgba(0,0,0,.25);min-width:0}
+.cart:before{content:"";position:absolute;left:18px;right:18px;top:4px;height:5px;border-radius:3px;background:repeating-linear-gradient(90deg,#555b6b 0 6px,#2a2e38 6px 10px)}
+.cart .lbl{flex:1;display:flex;flex-direction:column;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 70%,#000));border-radius:7px;padding:9px 10px 10px;color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.35);min-height:118px}
+.cart .lbl:hover{filter:brightness(1.1)}
+.cart .con{align-self:flex-start;font:bold 9px Verdana;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.35);padding:2px 6px;border-radius:8px}
+.cart .ct{font:900 15px/1.15 "Trebuchet MS",Arial,sans-serif;margin:7px 0 4px;text-shadow:1px 1px 0 rgba(0,0,0,.45);overflow-wrap:anywhere}
+.cart .cd{font-size:11px;line-height:1.35;opacity:.95;margin:0}
+.cart .cm{margin-top:auto;padding-top:6px;font:bold 10px Verdana;opacity:.9}
+.cart .get{display:block;margin-top:7px;text-align:center;font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px;border-radius:14px;background:linear-gradient(#7ee05a,#2f9e17);border:2px solid #1f6e0e;text-shadow:1px 1px 0 #1f6e0e}
+.cart .get:hover{background:linear-gradient(#a6f27c,#3cb81e)}
+.pcban{margin:0 0 14px;border:3px solid #0b3466;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #7fb2ff}
+.pcban .hd{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 14px;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2);color:#fff}
+.pcban .hd h2{margin:0;font:900 22px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 2px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
+.pcban .hd p{margin:0;flex:1 1 260px;font:bold 12px Verdana}
+.pcban .go{font:900 14px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
+.pcban .carts{border:0;border-radius:0;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .cd,.pcban .cart:nth-child(n+7){display:none}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
+"""
+
+
+def star(d):
+    return max([l.get("stars") or 0 for l in d["links"]] or [0])
+
+
+def cart(d, button=True):
+    """One PC port as a game cartridge: label links to its page, green button goes straight to the top project."""
+    top = d["links"][0]
+    desc = (next((l["desc"] for l in d["links"] if l["desc"]), "") or "")
+    desc = desc if len(desc) <= 96 else desc[:93].rsplit(" ", 1)[0] + "..."
+    meta = " &middot; ".join(x for x in [f'&#9733; {star(d):,}' if star(d) else "", f'{len(d["links"])} projects' if len(d["links"]) > 1 else ""] if x)
+    get = (f'<a class="get" href="{E(top["url"])}" target="_blank" rel="noopener noreferrer">Get it &#9656;</a>' if button else "")
+    return (f'<div class="cart" style="--c:{FAM_COL.get(d["fam"], "#546e7a")}"><a class="lbl" href="/decomp/{d["slug"]}">'
+            f'<span class="con">{E(d["platform"] or d["fam"])}</span><span class="ct">{E(d["title"])}</span>'
+            + (f'<p class="cd">{E(desc)}</p>' if desc else "") + (f'<span class="cm">{meta}</span>' if meta else "") + f'</a>{get}</div>')
+
+
+def base_title(t):
+    return re.sub(r"\s*\(.*?\)", "", t).strip().lower()
+
+
+def popular(decs, n, skip=()):
+    seen, out = set(skip), []
+    for d in sorted(decs, key=lambda d: -star(d)):
+        b = base_title(d["title"])
+        if b in seen: continue
+        seen.add(b); out.append(d)
+        if len(out) == n: break
+    return out
+
+
+def home_banner(decomps):
+    pg = [d for d in decomps if d["page"]]
+    picks = [d for d in pg if d["status"] == "easy"]
+    picks = popular(picks, 8)
+    return (f'<section class="pcban" id="pcports"><div class="hd"><h2>&#128190; NEW! PC PORTS</h2>'
+            f'<p>{len(pg):,} console classics rebuilt by fans to run on your computer. Zelda, Mario Kart 64, Sonic, Banjo and loads more. Bring your own copy of the game.</p>'
+            f'<a class="go" href="/decomps">Browse all PC Ports &#9656;</a></div><div class="carts">{"".join(cart(d, False) for d in picks)}</div></section>')
+
+
+PAGE_CSS = CART_CSS + """
 .crumbs{padding:8px 12px 0;font-size:11px;color:#555}.crumbs a{color:#0645ad}
 .gp{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:16px;padding:10px 12px 14px}
 .gp .shot{width:100%;aspect-ratio:4/3;object-fit:cover;border:3px solid #fff;box-shadow:0 0 0 1px #9cb6d2,2px 2px 0 #c9d9ea;background:#dde}
@@ -178,28 +242,62 @@ def build(games, decomps, css, header, bar, footer, thumb, cats, label):
                 f'{playh}<h2 style="font:bold 15px Trebuchet MS,Verdana;margin:16px 0 4px">More {E(d["fam"])} PC ports</h2><ul class="dlist" style="border-top:1px solid #c9d9ea;border-radius:7px">{rel}</ul></div>')
         write(f'/decomp/{d["slug"]}', shell(head(title, desc, f'/decomp/{d["slug"]}', None, cr_ld), body))
 
-    # ---- decomps hub ----
+    # ---- decomps hub: banner, easy installs, most popular, recently updated, browse by console, full list ----
     groups = {}
     for d in sorted(dec_page, key=lambda d: d["title"].lower()):
         groups.setdefault(d["fam"], []).append(d)
-    order = ["Nintendo", "PlayStation", "Xbox", "SEGA", "PC and DOS", "Arcade", "Old home computers", "Phones", "Other"]
+    fam_id = lambda f: "fam-" + re.sub(r"[^a-z]+", "-", f.lower()).strip("-")
+    easy = sorted([d for d in dec_page if d["status"] == "easy"], key=lambda d: -star(d))
+    pop = popular([d for d in dec_page if d["status"] != "easy"], 24, skip={base_title(d["title"]) for d in easy})
+    shown = {d["slug"] for d in easy + pop}
+    fresh = sorted([d for d in dec_page if d["slug"] not in shown and max(l.get("updated") or "" for l in d["links"])],
+                   key=lambda d: max(l.get("updated") or "" for l in d["links"]), reverse=True)[:12]
+    def shelf(title, sub, items, colour, anchor):
+        return (f'<section class="box" id="{anchor}" style="margin:0 12px 16px"><h2 style="--c:{colour};font-size:16px;padding:9px 11px"><span class="ic"></span>{title}<small>{len(items)} games</small></h2>'
+                f'<p class="vsub" style="margin:0;padding:7px 11px;background:#fff3e0;font-weight:bold;color:#7a3b00;border:1px solid #c9d9ea;border-top:0">{sub}</p>'
+                f'<div class="carts">{"".join(cart(d) for d in items)}</div></section>')
+    tiles = "".join(f'<a class="tile" href="#{fam_id(f)}" style="--c:{FAM_COL[f]}"><b>{E(f)}</b><span>{len(groups[f])} games</span></a>' for f in FAM_ORDER if f in groups)
     lists = "".join(
-        f'<section class="box"><h2 style="--c:#1f63b8"><span class="ic"></span>{E(f)}<small>{len(groups[f])} games</small></h2><ul class="dlist">'
+        f'<section class="box" id="{fam_id(f)}"><h2 style="--c:{FAM_COL[f]}"><span class="ic"></span>{E(f)}<small>{len(groups[f])} games</small></h2><ul class="dlist">'
         + "".join(f'<li><a href="/decomp/{d["slug"]}">{E(d["title"])}</a> <small>{E(d["platform"])}</small></li>' for d in groups[f]) + "</ul></section>"
-        for f in order if f in groups)
+        for f in FAM_ORDER if f in groups)
     cr, cr_ld = crumbs([("MegaClip", "/"), ("PC Ports", None)])
     desc = f'{len(decomps):,} classic console games rebuilt by fans to run on PC: decompilations, recompilations and fan ports. Bring your own copy of the game.'
-    fams = "".join(f'<option value="{E(f)}">{E(f)}</option>' for f in order if any(d["fam"] == f for d in decomps))
-    body = (f'{cr}<div class="doc2"><h1 style="font:bold 24px Trebuchet MS,Verdana;color:#c43e00;margin:6px 0">PC Ports: classic games rebuilt by fans</h1>'
-            f'<p>Fans have taken {len(decomps):,} console and classic games apart and rebuilt their code so they run natively on a computer. '
-            f'These are <b>downloads, not browser games</b>, and every one needs <b>your own copy of the original game</b>. '
-            f'{len(dec_page):,} of them have a PC version you can use today.</p>'
-            f'<div class="warn">&#128737; <b>Stay safe:</b> only download from each project\'s own page. Fake "PC port" downloads elsewhere can carry malware.</div>'
-            f'<div class="dq"><input id="dq" type="search" placeholder="Search all {len(decomps):,} games..." aria-label="Search PC ports">'
+    fams = "".join(f'<option value="{E(f)}">{E(f)}</option>' for f in FAM_ORDER if any(d["fam"] == f for d in decomps))
+    hub_css = """<style>
+.pchero{margin:10px 12px 14px;border-radius:12px;overflow:hidden;border:3px solid #0b3466;box-shadow:0 0 0 3px #7fb2ff;background:linear-gradient(120deg,#0b1f4a,#3a1c71 55%,#7b1fa2);color:#fff;padding:18px 18px 16px;position:relative}
+.pchero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,213,79,.35),transparent 40%),repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 2px,transparent 2px 4px);pointer-events:none}
+.pchero h1{margin:0;font:900 clamp(30px,6vw,54px)/1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;letter-spacing:-1px;text-shadow:0 3px 0 #b26a00,2px 2px 0 #000,0 8px 14px rgba(0,0,0,.4);transform:rotate(-1.5deg);transform-origin:left}
+.pchero .pctag{margin:10px 0 12px;font:bold 15px/1.4 Verdana;max-width:60ch;position:relative;z-index:1}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px;position:relative;z-index:1}
+.stats span{background:rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:6px 12px;font:bold 11px Verdana}
+.stats b{display:block;font:900 22px "Trebuchet MS",Arial;color:#ffd54f}
+.pchero .dq{position:relative;z-index:1;margin:0}.pchero .dq input{font-size:15px;padding:9px 11px;border:3px solid #ffd54f;border-radius:8px}
+.pchero .dq select{padding:8px;border-radius:6px}
+.chips2{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;position:relative;z-index:1;font:bold 11px Verdana}
+.chips2 span{background:#fff;color:#222;border-radius:14px;padding:5px 10px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:0 12px 16px}
+.tile{display:block;text-decoration:none;color:#fff;border-radius:10px;padding:10px 12px;background:linear-gradient(color-mix(in srgb,var(--c) 75%,#fff),var(--c));border:2px solid color-mix(in srgb,var(--c) 60%,#000);box-shadow:0 2px 0 color-mix(in srgb,var(--c) 60%,#000);text-shadow:1px 1px 0 rgba(0,0,0,.35)}
+.tile b{display:block;font:900 14px "Trebuchet MS",Arial}.tile span{font:bold 10px Verdana;opacity:.9}.tile:hover{filter:brightness(1.1)}
+#dcount{color:#ffd54f!important;font-weight:bold;position:relative;z-index:1;margin:8px 0 0}
+#dres{margin:0 12px 16px}
+</style>"""
+    body = (f'{hub_css}{cr}<div class="pchero"><h1>&#128190; PC PORTS</h1>'
+            f'<p class="pctag">Your favourite console classics, rebuilt by fans so they run on your computer. Widescreen, high frame rates, mods, the works.</p>'
+            f'<div class="stats"><span><b>{len(dec_page):,}</b>games with a PC version</span><span><b>{len(easy)}</b>easy installs</span>'
+            f'<span><b>{len(decomps):,}</b>games tracked</span><span><b>{sum(len(d["links"]) for d in decomps):,}</b>fan projects</span></div>'
+            f'<div class="dq"><input id="dq" type="search" placeholder="Search all {len(decomps):,} games... try Zelda, Sonic, Halo" aria-label="Search PC ports">'
             f'<select id="df" aria-label="Console"><option value="">All consoles</option>{fams}</select>'
             f'<select id="ds" aria-label="Status"><option value="pc">Has a PC version</option><option value="">Everything</option><option value="easy">Easy install only</option></select></div>'
-            f'<p id="dcount" style="font-size:11px;color:#666"></p><ul id="dres" hidden></ul></div><div id="dall" style="padding:0 12px">{lists}</div>')
-    write("/decomps", shell(head(f'PC Ports: {len(decomps):,} Classic Games Rebuilt by Fans :: MegaClip', desc, "/decomps", None, cr_ld), body))
+            f'<p id="dcount"></p>'
+            f'<div class="chips2"><span>&#128191; Bring your own copy of the game</span><span>&#128737; Only download from the project\'s own page</span><span>&#128187; Downloads, not browser games</span></div></div>'
+            f'<ul id="dres" hidden></ul><div id="dall">'
+            f'<div class="tiles">{tiles}</div>'
+            + shelf("&#11088; Easy install: start here", "Ready-made PC versions with a simple installer or launcher. Pick one, grab your copy of the game, play.", easy, "#2e9e2e", "easy")
+            + shelf("&#128293; Most popular fan projects", "The biggest fan rebuilds on the internet, ranked by GitHub stars.", pop, "#e53935", "popular")
+            + (shelf("&#9889; Recently updated", "Projects that pushed new work most recently.", fresh, "#1f63b8", "fresh") if fresh else "")
+            + f'<div style="padding:0 12px"><h2 style="font:900 18px Trebuchet MS,Arial;color:#c43e00;margin:4px 0 8px">Every PC port, by console</h2>{lists}</div></div>')
+    write("/decomps", shell(head(f'PC Ports: {len(dec_page):,} Classic Console Games Rebuilt for PC :: MegaClip', desc, "/decomps", None, cr_ld), body))
 
     # ---- search data (loaded only when someone searches) ----
     json.dump([[d["slug"] if d["page"] else "", d["title"], d["platform"], d["fam"], d["status"],

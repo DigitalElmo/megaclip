@@ -66,6 +66,7 @@ for g in games:  # each game keeps its page address forever once given one
         g["slug"] = s; used.add(s)
 json.dump(games, open("games.json", "w"), ensure_ascii=False, indent=1)
 decomps = json.load(open("decomps.json"))
+import pages
 newest = max(g["added"] for g in games)
 for g in games:
     g["is_new"] = g["added"] == newest
@@ -176,11 +177,12 @@ footer{{background:#0b3466;color:#bcd3f0;font-size:10px;text-align:center;paddin
 nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text-shadow:1px 1px 0 #7f0000}}
 @media (max-width:820px){{.cols{{grid-template-columns:minmax(0,1fr)}}main{{min-width:0}}.slogan{{font-size:10px;right:90px}}.feat img{{max-width:320px}}.grid{{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}}.side,.right{{order:2}}.feat{{grid-template-columns:1fr}}.logo{{font-size:38px}}.badge{{width:70px;height:70px;font-size:11px}}marquee{{display:none}}.viral .grid{{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}}.viral h2{{font-size:14px}}.bar{{flex-wrap:wrap}}}}
 {MAILCSS}
+{pages.CART_CSS}
 </style></head><body><div class="wrap">
 <header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div><div class="cloud" style="left:52%;top:12px;width:44px"></div>
 <div class="logo">Mega<span>Clip</span></div><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>
 <div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>
-<nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}<a href="/decomps">&#128190; PC Ports</a></nav>
+<nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a><a class="hot" href="/decomps">&#128190; PC Ports</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}</nav>
 <div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>
 <label class="ph"><input type="checkbox" id="ph"> &#128241; Phone-friendly<span class="lg"> only</span></label><marquee scrollamount="4">&#9733; NEW GAMES ADDED! &#9733; {ticker} &#9733;</marquee><div class="strip"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><button type="button" class="s2" data-reveal="s">&#128236; Suggest<span class="lg"> a game</span></button><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>
 {SUGBOX}
@@ -189,6 +191,7 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 <div class="panel" style="margin-top:10px"><div class="flash"><b>Play them while you can!</b>Some of these games get taken down by the big publishers, so if one stops working, try another.</div></div></aside>
 <main id="home">
 {viralbox}
+{pages.home_banner(decomps)}
 <div class="feat"><img src="/{E(feat["img"])}" alt=""><div><h2>Featured Game: {E(feat["name"])}</h2>
 <p>{E(feat.get("blurb","The one that started it all. Black Ops zombies, running right in your web browser. No install, no disc, just click and play."))}</p>
 <a class="play" href="{E(feat["url"])}" target="_blank" rel="noopener noreferrer">&#9654; PLAY NOW!</a></div></div>
@@ -240,12 +243,11 @@ about = f'''{head}<title>About &amp; Safety :: MegaClip</title><style>{css}
 <footer>MegaClip &middot; last updated {updated} &middot; <a href="/" style="color:#fff">All games</a> &middot; <a href="{gh}" target="_blank" rel="noopener noreferrer" style="color:#fff">View the code on GitHub</a></footer></div>{MAILJS}</body></html>'''
 open("about.html", "w").write(about)
 # Game pages, category pages, PC Ports section, search data (pages.py)
-import pages
 sub_header = (f'<header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div>'
               f'<a href="/" style="text-decoration:none"><div class="logo">Mega<span>Clip</span></div></a><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>'
               f'<div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>'
-              '<nav><a class="hot" href="/">&#9664; All games</a>' + "".join(f'<a href="/category/{k}">{E(l)}</a>' for k, l, _ in cats if k != "new")
-              + '<a href="/decomps">&#128190; PC Ports</a></nav>')
+              '<nav><a class="hot" href="/">&#9664; All games</a><a class="hot" href="/decomps">&#128190; PC Ports</a>'
+              + "".join(f'<a href="/category/{k}">{E(l)}</a>' for k, l, _ in cats if k != "new") + '</nav>')
 sub_bar = (f'<div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>'
            f'<div class="strip" style="margin-left:auto"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>')
 sub_footer = (f'<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; '

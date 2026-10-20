@@ -80,6 +80,26 @@ nav a.hot{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text-
  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1 1 100%;padding:2px 0 1px}.strip a,.strip button{padding:5px 4px;font-size:12px;text-align:center}
  .mailbox{margin:8px}}
 
+.carts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px 12px;padding:12px;border:1px solid #c9d9ea;border-top:0;border-radius:0 0 7px 7px;background:#eef3f9}
+.cart{position:relative;display:flex;flex-direction:column;background:linear-gradient(#3b4150,#23262f);border-radius:12px 12px 5px 5px;padding:14px 8px 8px;box-shadow:0 3px 0 #11131a,0 5px 10px rgba(0,0,0,.25);min-width:0}
+.cart:before{content:"";position:absolute;left:18px;right:18px;top:4px;height:5px;border-radius:3px;background:repeating-linear-gradient(90deg,#555b6b 0 6px,#2a2e38 6px 10px)}
+.cart .lbl{flex:1;display:flex;flex-direction:column;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 70%,#000));border-radius:7px;padding:9px 10px 10px;color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.35);min-height:118px}
+.cart .lbl:hover{filter:brightness(1.1)}
+.cart .con{align-self:flex-start;font:bold 9px Verdana;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.35);padding:2px 6px;border-radius:8px}
+.cart .ct{font:900 15px/1.15 "Trebuchet MS",Arial,sans-serif;margin:7px 0 4px;text-shadow:1px 1px 0 rgba(0,0,0,.45);overflow-wrap:anywhere}
+.cart .cd{font-size:11px;line-height:1.35;opacity:.95;margin:0}
+.cart .cm{margin-top:auto;padding-top:6px;font:bold 10px Verdana;opacity:.9}
+.cart .get{display:block;margin-top:7px;text-align:center;font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px;border-radius:14px;background:linear-gradient(#7ee05a,#2f9e17);border:2px solid #1f6e0e;text-shadow:1px 1px 0 #1f6e0e}
+.cart .get:hover{background:linear-gradient(#a6f27c,#3cb81e)}
+.pcban{margin:0 0 14px;border:3px solid #0b3466;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #7fb2ff}
+.pcban .hd{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 14px;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2);color:#fff}
+.pcban .hd h2{margin:0;font:900 22px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 2px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
+.pcban .hd p{margin:0;flex:1 1 260px;font:bold 12px Verdana}
+.pcban .go{font:900 14px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
+.pcban .carts{border:0;border-radius:0;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .cd,.pcban .cart:nth-child(n+7){display:none}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
+
+
 .doc{max-width:820px;margin:0 auto;padding:16px 14px 24px;font-size:13px;line-height:1.55}.doc .panel ul{list-style:disc;padding-left:26px}.doc .panel li{padding:3px 0}
 .linkbtn{background:none;border:0;padding:0;color:#0645ad;text-decoration:underline;cursor:pointer;font:inherit}.doc h1{font:bold 22px "Trebuchet MS",Verdana;color:#c43e00;margin:0 0 6px}.doc p.lead{margin:0 0 14px}</style></head><body><div class="wrap">
 <header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div>
