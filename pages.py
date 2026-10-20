@@ -134,12 +134,12 @@ def crumbs(items):
     return f'<div class="crumbs">{html_}</div>', ld(data)
 
 
-def build(games, decomps, css, header, bar, footer, thumb, cats, label):
+def build(games, decomps, css, header, bar, footer, thumb, cats, label, poke=()):
     """Write every extra page. Returns (list of page html, list of sitemap paths)."""
     out, paths = [], []
 
-    def write(path, page):
-        fn = "index.html" if path == "/" else path.strip("/") + ".html"
+    def write(path, page, fn=None):
+        fn = fn or ("index.html" if path == "/" else path.strip("/") + ".html")
         os.makedirs(os.path.dirname(fn) or ".", exist_ok=True)
         open(fn, "w").write(page)
         out.append(page)
@@ -301,6 +301,11 @@ def build(games, decomps, css, header, bar, footer, thumb, cats, label):
             + (shelf("&#9889; Recently updated", "Projects that pushed new work most recently.", fresh, "#1f63b8", "fresh") if fresh else "")
             + f'<div style="padding:0 12px"><h2 style="font:900 18px Trebuchet MS,Arial;color:#c43e00;margin:4px 0 8px">Every PC port, by console</h2>{lists}</div></div>')
     write("/decomps", shell(head(f'PC Ports: {len(dec_page):,} Classic Console Games Rebuilt for PC :: MegaClip', desc, "/decomps", None, cr_ld), body))
+
+    # ---- Pokémon Fan Games section (pokemon_pages.py) ----
+    if poke:
+        import pokemon_pages
+        pokemon_pages.build(poke, games, write, shell)
 
     # ---- search data (loaded only when someone searches) ----
     json.dump([[d["slug"] if d["page"] else "", d["title"], d["platform"], d["fam"], d["status"],

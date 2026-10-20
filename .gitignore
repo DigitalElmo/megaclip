@@ -11,3 +11,6 @@ category/
 decomps.html
 search-decomps.json
 __pycache__/
+pokemon/
+pokemon.html
+search-pokemon.json

@@ -66,7 +66,8 @@ for g in games:  # each game keeps its page address forever once given one
         g["slug"] = s; used.add(s)
 json.dump(games, open("games.json", "w"), ensure_ascii=False, indent=1)
 decomps = json.load(open("decomps.json"))
-import pages
+poke = json.load(open("pokemon.json"))
+import pages, pokemon_pages
 newest = max(g["added"] for g in games)
 for g in games:
     g["is_new"] = g["added"] == newest
@@ -182,22 +183,24 @@ nav a.hot{{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text
 <header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div><div class="cloud" style="left:52%;top:12px;width:44px"></div>
 <div class="logo">Mega<span>Clip</span></div><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>
 <div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>
-<nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a><a class="hot" href="/decomps">&#128190; PC Ports</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}</nav>
+<nav><a class="hot" href="#viral">&#128293; Viral {len(viral)}</a><a class="hot" href="/decomps">&#128190; PC Ports</a><a class="hot" href="/pokemon">&#9889; Pok&eacute;mon</a>{"".join(f'<a href="#{k}">{E(l)}</a>' for k, l, _ in cats[:8])}</nav>
 <div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>
 <label class="ph"><input type="checkbox" id="ph"> &#128241; Phone-friendly<span class="lg"> only</span></label><marquee scrollamount="4">&#9733; NEW GAMES ADDED! &#9733; {ticker} &#9733;</marquee><div class="strip"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><button type="button" class="s2" data-reveal="s">&#128236; Suggest<span class="lg"> a game</span></button><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>
 {SUGBOX}
 <div class="cols">
-<aside class="side"><h3>Game Categories</h3><ul><li><a href="#viral"><span class="ic" style="--c:#e53935"></span>&#128293; The Viral {len(viral)}</a> <small>({len(viral)})</small></li>{side}<li><a href="/decomps"><span class="ic" style="--c:#0b3466"></span>&#128190; PC Ports</a> <small>({len(decomps):,})</small></li></ul>
+<aside class="side"><h3>Game Categories</h3><ul><li><a href="#viral"><span class="ic" style="--c:#e53935"></span>&#128293; The Viral {len(viral)}</a> <small>({len(viral)})</small></li>{side}<li><a href="/decomps"><span class="ic" style="--c:#0b3466"></span>&#128190; PC Ports</a> <small>({len(decomps):,})</small></li><li><a href="/pokemon"><span class="ic" style="--c:#e53935"></span>&#9889; Pok&eacute;mon Fan Games</a> <small>({len(poke):,})</small></li></ul>
 <div class="panel" style="margin-top:10px"><div class="flash"><b>Play them while you can!</b>Some of these games get taken down by the big publishers, so if one stops working, try another.</div></div></aside>
 <main id="home">
 {viralbox}
 {pages.home_banner(decomps)}
+{pokemon_pages.home_strip(poke)}
 <div class="feat"><img src="/{E(feat["img"])}" alt=""><div><h2>Featured Game: {E(feat["name"])}</h2>
 <p>{E(feat.get("blurb","The one that started it all. Black Ops zombies, running right in your web browser. No install, no disc, just click and play."))}</p>
 <a class="play" href="{E(feat["url"])}" target="_blank" rel="noopener noreferrer">&#9654; PLAY NOW!</a></div></div>
 <p id="nores" class="hide" style="padding:10px;background:#ffefc2">No games found. Try another word!</p>
 {boxes}
-<section class="box" id="dbox" hidden><h2 style="--c:#0b3466"><span class="ic"></span>&#128190; PC Ports: download, bring your own copy of the game<small id="dn"></small></h2><ul class="dlist" id="dl"></ul></section></main>
+<section class="box" id="dbox" hidden><h2 style="--c:#0b3466"><span class="ic"></span>&#128190; PC Ports: download, bring your own copy of the game<small id="dn"></small></h2><ul class="dlist" id="dl"></ul></section>
+<section class="box" id="pbox" hidden><h2 style="--c:#e53935"><span class="ic"></span>&#9889; Pok&eacute;mon fan games and ROM hacks<small id="pn"></small></h2><ul class="dlist" id="pl"></ul></section></main>
 <aside class="right"><div class="panel"><h3>&#9749; Keep MegaClip running</h3><ul><li>MegaClip is free and staying free. No ads, ever. If it gave you a new favourite game, you can buy me a coffee.<a class="kofi" href="https://ko-fi.com/digitalelmo" target="_blank" rel="noopener noreferrer">&#9749; Support on Ko-fi</a></li></ul></div><div class="panel"><h3>&#9733; Top 10 Games</h3><ol>{toplist}</ol></div>
 <div class="panel"><h3>New This Week</h3><ul>{freshlist}</ul></div>
 <div class="panel"><div class="flash"><b>Tips</b>Green &#128241; = works on a phone. Grey &#128187; = needs a computer. Games work best in Chrome. Some ask for files from a game you own: skip those. Big games can take a minute to load, so wait for the bar!</div></div></aside>
@@ -246,13 +249,13 @@ open("about.html", "w").write(about)
 sub_header = (f'<header><div class="cloud" style="left:38%;top:24px;width:70px"></div><div class="cloud" style="left:62%;top:44px;width:56px"></div>'
               f'<a href="/" style="text-decoration:none"><div class="logo">Mega<span>Clip</span></div></a><div class="slogan">Free online games! No downloads, no Flash Player needed!</div>'
               f'<div class="badge">{len(games)}<br>FREE<br>GAMES!</div></header>'
-              '<nav><a class="hot" href="/">&#9664; All games</a><a class="hot" href="/decomps">&#128190; PC Ports</a>'
+              '<nav><a class="hot" href="/">&#9664; All games</a><a class="hot" href="/decomps">&#128190; PC Ports</a><a class="hot" href="/pokemon">&#9889; Pok&eacute;mon</a>'
               + "".join(f'<a href="/category/{k}">{E(l)}</a>' for k, l, _ in cats if k != "new") + '</nav>')
 sub_bar = (f'<div class="bar"><input id="q" type="search" placeholder="Search games..." aria-label="Search games"><button id="go">Search</button>'
            f'<div class="strip" style="margin-left:auto"><a class="s1" href="{KOFI}" target="_blank" rel="noopener noreferrer">&#9749; Support<span class="lg"> MegaClip</span></a><a class="s3" href="/about">&#128737; <span class="lg">Is it safe?</span><span class="sm">Safe?</span></a></div></div>')
 sub_footer = (f'<footer>MegaClip &middot; last updated {updated} &middot; Games belong to their makers and are linked, not hosted here. &middot; '
-              f'<a href="/" style="color:#fff">All games</a> &middot; <a href="/decomps" style="color:#fff">PC Ports</a> &middot; <a href="/about" style="color:#fff">About &amp; Safety</a></footer>')
-extra, paths = pages.build(games, decomps, css, sub_header, sub_bar, sub_footer, thumb, CATS, LABEL)
+              f'<a href="/" style="color:#fff">All games</a> &middot; <a href="/decomps" style="color:#fff">PC Ports</a> &middot; <a href="/pokemon" style="color:#fff">Pok&eacute;mon Fan Games</a> &middot; <a href="/about" style="color:#fff">About &amp; Safety</a></footer>')
+extra, paths = pages.build(games, decomps, css, sub_header, sub_bar, sub_footer, thumb, CATS, LABEL, poke)
 for g in games:
     g.pop("_decomp", None)
 # Sitemap: home, about, and every generated page
