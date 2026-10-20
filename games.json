@@ -8279,5 +8279,29 @@
   "top": false,
   "mobile": "yes",
   "mobile_why": "merge game"
+ },
+ {
+  "url": "https://lasvegasherogame.com/gh3/",
+  "img": "shots/t218.jpg",
+  "name": "Guitar Hero III",
+  "host": "lasvegasherogame.com",
+  "note": "Needs a recent Chrome or Edge",
+  "cat": "retro",
+  "added": "2026-10-20",
+  "top": false,
+  "mobile": "maybe",
+  "mobile_why": "page says PC and mobile, needs WebGPU"
+ },
+ {
+  "url": "https://vt3.online/",
+  "img": "shots/t219.jpg",
+  "name": "Virtua Tennis 3 Online",
+  "host": "vt3.online",
+  "note": "",
+  "cat": "sports",
+  "added": "2026-10-20",
+  "top": false,
+  "mobile": "yes",
+  "mobile_why": "page has touch controls"
  }
 ]
