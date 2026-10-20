@@ -89,13 +89,15 @@ nav a.hot{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text-
 .cart .cm{margin-top:auto;padding-top:6px;font:bold 10px Verdana;opacity:.9}
 .cart .get{display:block;margin-top:7px;text-align:center;font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px;border-radius:14px;background:linear-gradient(#7ee05a,#2f9e17);border:2px solid #1f6e0e;text-shadow:1px 1px 0 #1f6e0e}
 .cart .get:hover{background:linear-gradient(#a6f27c,#3cb81e)}
-.pcban{margin:0 0 14px;border:3px solid #0b3466;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #7fb2ff}
-.pcban .hd{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 14px;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2);color:#fff}
-.pcban .hd h2{margin:0;font:900 22px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 2px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
-.pcban .hd p{margin:0;flex:1 1 260px;font:bold 12px Verdana}
-.pcban .go{font:900 14px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
-.pcban .carts{border:0;border-radius:0;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
-@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .cd,.pcban .cart:nth-child(n+7){display:none}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
+.pcban{margin:0 0 12px;border:2px solid #0b3466;border-radius:9px;overflow:hidden;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2)}
+.pcban .hd{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;padding:7px 10px;color:#fff}
+.pcban .hd h2{margin:0;font:900 16px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 1px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
+.pcban .hd p{margin:0;flex:1 1 220px;font:bold 11px Verdana}
+.pcban .go{font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:4px 12px;border-radius:14px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
+.pcban .row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(118px,1fr);gap:6px;padding:0 10px 9px;overflow-x:auto;scrollbar-width:thin}
+.cart.mini{padding:8px 4px 4px;border-radius:8px 8px 4px 4px}.cart.mini:before{top:2px;height:3px;left:12px;right:12px}
+.cart.mini .lbl{min-height:0;padding:5px 6px;border-width:1px}.cart.mini .con{font-size:8px;padding:1px 5px}.cart.mini .ct{font-size:11px;margin:4px 0 0}
+@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .row{grid-auto-columns:110px}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
 
 
 .carts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px 12px;padding:12px;border:1px solid #c9d9ea;border-top:0;border-radius:0 0 7px 7px;background:#eef3f9}
@@ -109,13 +111,15 @@ nav a.hot{background:linear-gradient(#ff6b5b,#d81b1b);border-color:#8e0000;text-
 .cart .cm{margin-top:auto;padding-top:6px;font:bold 10px Verdana;opacity:.9}
 .cart .get{display:block;margin-top:7px;text-align:center;font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px;border-radius:14px;background:linear-gradient(#7ee05a,#2f9e17);border:2px solid #1f6e0e;text-shadow:1px 1px 0 #1f6e0e}
 .cart .get:hover{background:linear-gradient(#a6f27c,#3cb81e)}
-.pcban{margin:0 0 14px;border:3px solid #0b3466;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #7fb2ff}
-.pcban .hd{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 14px;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2);color:#fff}
-.pcban .hd h2{margin:0;font:900 22px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 2px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
-.pcban .hd p{margin:0;flex:1 1 260px;font:bold 12px Verdana}
-.pcban .go{font:900 14px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
-.pcban .carts{border:0;border-radius:0;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
-@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .cd,.pcban .cart:nth-child(n+7){display:none}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
+.pcban{margin:0 0 12px;border:2px solid #0b3466;border-radius:9px;overflow:hidden;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2)}
+.pcban .hd{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;padding:7px 10px;color:#fff}
+.pcban .hd h2{margin:0;font:900 16px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 1px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
+.pcban .hd p{margin:0;flex:1 1 220px;font:bold 11px Verdana}
+.pcban .go{font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:4px 12px;border-radius:14px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
+.pcban .row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(118px,1fr);gap:6px;padding:0 10px 9px;overflow-x:auto;scrollbar-width:thin}
+.cart.mini{padding:8px 4px 4px;border-radius:8px 8px 4px 4px}.cart.mini:before{top:2px;height:3px;left:12px;right:12px}
+.cart.mini .lbl{min-height:0;padding:5px 6px;border-width:1px}.cart.mini .con{font-size:8px;padding:1px 5px}.cart.mini .ct{font-size:11px;margin:4px 0 0}
+@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .row{grid-auto-columns:110px}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
 
 .crumbs{padding:8px 12px 0;font-size:11px;color:#555}.crumbs a{color:#0645ad}
 .gp{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:16px;padding:10px 12px 14px}

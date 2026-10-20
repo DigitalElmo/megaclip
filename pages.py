@@ -25,13 +25,15 @@ CART_CSS = """
 .cart .cm{margin-top:auto;padding-top:6px;font:bold 10px Verdana;opacity:.9}
 .cart .get{display:block;margin-top:7px;text-align:center;font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:6px;border-radius:14px;background:linear-gradient(#7ee05a,#2f9e17);border:2px solid #1f6e0e;text-shadow:1px 1px 0 #1f6e0e}
 .cart .get:hover{background:linear-gradient(#a6f27c,#3cb81e)}
-.pcban{margin:0 0 14px;border:3px solid #0b3466;border-radius:10px;overflow:hidden;box-shadow:0 0 0 3px #7fb2ff}
-.pcban .hd{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 14px;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2);color:#fff}
-.pcban .hd h2{margin:0;font:900 22px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 2px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
-.pcban .hd p{margin:0;flex:1 1 260px;font:bold 12px Verdana}
-.pcban .go{font:900 14px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:8px 16px;border-radius:20px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
-.pcban .carts{border:0;border-radius:0;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
-@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .cd,.pcban .cart:nth-child(n+7){display:none}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
+.pcban{margin:0 0 12px;border:2px solid #0b3466;border-radius:9px;overflow:hidden;background:linear-gradient(120deg,#0b1f4a,#3a1c71 60%,#7b1fa2)}
+.pcban .hd{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;padding:7px 10px;color:#fff}
+.pcban .hd h2{margin:0;font:900 16px/1.1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;text-shadow:0 1px 0 #b26a00,1px 1px 0 #000;background:none;padding:0}
+.pcban .hd p{margin:0;flex:1 1 220px;font:bold 11px Verdana}
+.pcban .go{font:900 12px "Trebuchet MS",Arial;color:#fff;text-decoration:none;padding:4px 12px;border-radius:14px;background:linear-gradient(#ffb43d,#ff7b00);border:2px solid #c45a00;text-shadow:1px 1px 0 #a34a00;white-space:nowrap}
+.pcban .row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(118px,1fr);gap:6px;padding:0 10px 9px;overflow-x:auto;scrollbar-width:thin}
+.cart.mini{padding:8px 4px 4px;border-radius:8px 8px 4px 4px}.cart.mini:before{top:2px;height:3px;left:12px;right:12px}
+.cart.mini .lbl{min-height:0;padding:5px 6px;border-width:1px}.cart.mini .con{font-size:8px;padding:1px 5px}.cart.mini .ct{font-size:11px;margin:4px 0 0}
+@media (max-width:560px){.carts,.pcban .carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;padding:8px}.cart{padding:12px 5px 6px}.cart .ct{font-size:13px}.cart .lbl{min-height:96px;padding:7px}.pcban .row{grid-auto-columns:110px}.cart .cd{font-size:10px}.pcban .hd h2{font-size:19px}}
 """
 
 
@@ -39,14 +41,16 @@ def star(d):
     return max([l.get("stars") or 0 for l in d["links"]] or [0])
 
 
-def cart(d, button=True):
+def cart(d, button=True, mini=False):
     """One PC port as a game cartridge: label links to its page, green button goes straight to the top project."""
     top = d["links"][0]
     desc = (next((l["desc"] for l in d["links"] if l["desc"]), "") or "")
     desc = desc if len(desc) <= 96 else desc[:93].rsplit(" ", 1)[0] + "..."
     meta = " &middot; ".join(x for x in [f'&#9733; {star(d):,}' if star(d) else "", f'{len(d["links"])} projects' if len(d["links"]) > 1 else ""] if x)
     get = (f'<a class="get" href="{E(top["url"])}" target="_blank" rel="noopener noreferrer">Get it &#9656;</a>' if button else "")
-    return (f'<div class="cart" style="--c:{FAM_COL.get(d["fam"], "#546e7a")}"><a class="lbl" href="/decomp/{d["slug"]}">'
+    if mini:
+        desc, meta, get = "", "", ""
+    return (f'<div class="cart{" mini" if mini else ""}" style="--c:{FAM_COL.get(d["fam"], "#546e7a")}"><a class="lbl" href="/decomp/{d["slug"]}">'
             f'<span class="con">{E(d["platform"] or d["fam"])}</span><span class="ct">{E(d["title"])}</span>'
             + (f'<p class="cd">{E(desc)}</p>' if desc else "") + (f'<span class="cm">{meta}</span>' if meta else "") + f'</a>{get}</div>')
 
@@ -70,8 +74,8 @@ def home_banner(decomps):
     picks = [d for d in pg if d["status"] == "easy"]
     picks = popular(picks, 8)
     return (f'<section class="pcban" id="pcports"><div class="hd"><h2>&#128190; NEW! PC PORTS</h2>'
-            f'<p>{len(pg):,} console classics rebuilt by fans to run on your computer. Zelda, Mario Kart 64, Sonic, Banjo and loads more. Bring your own copy of the game.</p>'
-            f'<a class="go" href="/decomps">Browse all PC Ports &#9656;</a></div><div class="carts">{"".join(cart(d, False) for d in picks)}</div></section>')
+            f'<p>{len(pg):,} console classics rebuilt by fans to run on your PC. Bring your own copy of the game.</p>'
+            f'<a class="go" href="/decomps">Browse all &#9656;</a></div><div class="row">{"".join(cart(d, False, True) for d in picks)}</div></section>')
 
 
 PAGE_CSS = CART_CSS + """
@@ -265,17 +269,16 @@ def build(games, decomps, css, header, bar, footer, thumb, cats, label):
     desc = f'{len(decomps):,} classic console games rebuilt by fans to run on PC: decompilations, recompilations and fan ports. Bring your own copy of the game.'
     fams = "".join(f'<option value="{E(f)}">{E(f)}</option>' for f in FAM_ORDER if any(d["fam"] == f for d in decomps))
     hub_css = """<style>
-.pchero{margin:10px 12px 14px;border-radius:12px;overflow:hidden;border:3px solid #0b3466;box-shadow:0 0 0 3px #7fb2ff;background:linear-gradient(120deg,#0b1f4a,#3a1c71 55%,#7b1fa2);color:#fff;padding:18px 18px 16px;position:relative}
+.pchero{margin:8px 12px 12px;border-radius:10px;overflow:hidden;border:2px solid #0b3466;background:linear-gradient(120deg,#0b1f4a,#3a1c71 55%,#7b1fa2);color:#fff;padding:12px 14px;position:relative}
 .pchero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,213,79,.35),transparent 40%),repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 2px,transparent 2px 4px);pointer-events:none}
-.pchero h1{margin:0;font:900 clamp(30px,6vw,54px)/1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;letter-spacing:-1px;text-shadow:0 3px 0 #b26a00,2px 2px 0 #000,0 8px 14px rgba(0,0,0,.4);transform:rotate(-1.5deg);transform-origin:left}
-.pchero .pctag{margin:10px 0 12px;font:bold 15px/1.4 Verdana;max-width:60ch;position:relative;z-index:1}
-.stats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px;position:relative;z-index:1}
-.stats span{background:rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.3);border-radius:12px;padding:6px 12px;font:bold 11px Verdana}
-.stats b{display:block;font:900 22px "Trebuchet MS",Arial;color:#ffd54f}
-.pchero .dq{position:relative;z-index:1;margin:0}.pchero .dq input{font-size:15px;padding:9px 11px;border:3px solid #ffd54f;border-radius:8px}
+.pchero h1{margin:0;font:900 clamp(24px,4vw,34px)/1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffd54f;letter-spacing:-1px;text-shadow:0 3px 0 #b26a00,2px 2px 0 #000,0 8px 14px rgba(0,0,0,.4);transform:rotate(-1.5deg);transform-origin:left}
+.pchero .pctag{margin:6px 0 8px;font:bold 12px/1.4 Verdana;max-width:60ch;position:relative;z-index:1}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 9px;position:relative;z-index:1;font:bold 11px Verdana}
+.stats b{font:900 15px "Trebuchet MS",Arial;color:#ffd54f;margin-right:3px}
+.pchero .dq{position:relative;z-index:1;margin:0}.pchero .dq input{font-size:13px;padding:6px 9px;border:2px solid #ffd54f;border-radius:6px}
 .pchero .dq select{padding:8px;border-radius:6px}
-.chips2{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;position:relative;z-index:1;font:bold 11px Verdana}
-.chips2 span{background:#fff;color:#222;border-radius:14px;padding:5px 10px}
+.chips2{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;position:relative;z-index:1;font:bold 11px Verdana}
+.chips2 span{background:rgba(255,255,255,.92);color:#222;border-radius:12px;padding:3px 8px;font-size:10px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:0 12px 16px}
 .tile{display:block;text-decoration:none;color:#fff;border-radius:10px;padding:10px 12px;background:linear-gradient(color-mix(in srgb,var(--c) 75%,#fff),var(--c));border:2px solid color-mix(in srgb,var(--c) 60%,#000);box-shadow:0 2px 0 color-mix(in srgb,var(--c) 60%,#000);text-shadow:1px 1px 0 rgba(0,0,0,.35)}
 .tile b{display:block;font:900 14px "Trebuchet MS",Arial}.tile span{font:bold 10px Verdana;opacity:.9}.tile:hover{filter:brightness(1.1)}
