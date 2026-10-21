@@ -2,7 +2,14 @@
 
 **[megaclip.games](https://megaclip.games)** — every new browser game worth playing, in one place. Miniclip energy for 2026.
 
-MegaClip is a hand-picked list of 400+ games you can play straight in a browser tab: indie games, .io multiplayer, AI-made games, fan ports, Pokémon fan games and daily puzzles. Click and play. Nothing to download or install.
+MegaClip is a hand-picked list of 668 games you can play straight in a browser tab: indie games, .io multiplayer, AI-made games, fan ports, Pokémon fan games and daily puzzles. Click and play. Nothing to download or install. New games are added all the time.
+
+It also has two big guides, all in the same search box:
+
+- **[PC Ports](https://megaclip.games/decomps):** over 1,000 console classics that fans have rebuilt to run on PC, each linked to its own project page. Bring your own copy of the game.
+- **[Pokémon Fan Games](https://megaclip.games/pokemon):** 3,893 Pokémon fan games and ROM hacks, each linked only to its official page (the maker's own site, forum thread, GitHub or itch.io).
+
+That's more than 6,600 games in one search.
 
 ## How it works
 
@@ -10,7 +17,7 @@ MegaClip is a **list of links**. It's like a big bookmarks page.
 
 - It hosts **no games** and **no game files**. Every game runs on its own maker's website.
 - It has **no ads, no trackers, no cookies, no accounts and no logins**.
-- The whole site is static HTML, built from [`games.json`](games.json) and [`decomps.json`](decomps.json) by [`arcade.py`](arcade.py) and [`pages.py`](pages.py). You can read every line of it here.
+- The whole site is static HTML, built from [`games.json`](games.json), [`decomps.json`](decomps.json) and [`pokemon.json`](pokemon.json) by [`arcade.py`](arcade.py), [`pages.py`](pages.py) and [`pokemon_pages.py`](pokemon_pages.py). You can read every line of it here.
 
 ## Is it safe?
 
@@ -36,8 +43,8 @@ Use the **Suggest a game** button on [megaclip.games](https://megaclip.games) or
 ## Build it yourself
 
 ```sh
-python3 arcade.py       # rebuilds index.html, every game/category/PC Ports page, sitemap.xml and vercel.json
-                        # (the generated game/, decomp/ and category/ pages aren't committed; this command makes them)
+python3 arcade.py       # rebuilds index.html, every game/category/PC Ports/Pokémon page, sitemap.xml and vercel.json
+                        # (the generated game/, decomp/, pokemon/ and category/ pages aren't committed; this command makes them)
 ```
 
 Thumbnails (`shots/`) aren't in this repo because they come from each game's own page. The build still works without them.
