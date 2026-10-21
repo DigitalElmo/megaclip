@@ -17,6 +17,7 @@ BASE_ORDER = ["Red/Blue", "Yellow", "Gold", "Silver", "Crystal", "Ruby", "Sapphi
 PK_CSS = """
 .pkhero{margin:8px 12px 12px;border-radius:10px;overflow:hidden;border:2px solid #7a1010;background:linear-gradient(120deg,#b71c1c,#e53935 45%,#ff8f00);color:#fff;padding:12px 14px;position:relative}
 .pkhero:after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#fff 0 18%,#222 18% 22%,transparent 22%),linear-gradient(#ffffff22 50%,#00000022 50%);border:10px solid #ffffff33;pointer-events:none}
+@media(max-width:600px){.pkhero:after{width:120px;height:120px;right:-52px;top:-52px;border-width:7px}}
 .pkhero h1{margin:0;font:900 clamp(24px,4vw,34px)/1 "Arial Rounded MT Bold","Trebuchet MS",Arial;color:#ffeb3b;letter-spacing:-1px;text-shadow:0 2px 0 #8a1c00,2px 2px 0 #000;transform:rotate(-1.5deg);transform-origin:left;position:relative;z-index:1}
 .pkhero .pctag{margin:6px 0 8px;font:bold 12px/1.4 Verdana;max-width:62ch;position:relative;z-index:1}
 .pkhero .stats{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 9px;position:relative;z-index:1;font:bold 11px Verdana}
