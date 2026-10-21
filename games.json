@@ -184,27 +184,6 @@
   "slug": "pes-6"
  },
  {
-  "url": "https://web.archive.org/web/20261006055917/https://playgta5.com/",
-  "img": "shots/13.jpg",
-  "name": "GTA 5 (archived copy)",
-  "host": "web.archive.org",
-  "note": "",
-  "cat": "action",
-  "added": "2026-10-08",
-  "top": true,
-  "mobile": "no",
-  "mobile_why": "Archived copy, needs keyboard and mouse",
-  "desc": "An archived copy of a browser GTA 5 page, saved on the Wayback Machine. Load it up and see what the open-world hype is about.",
-  "tags": [
-   "open world",
-   "action",
-   "archive"
-  ],
-  "based_on": "",
-  "desc_conf": "low",
-  "slug": "gta-5-archived-copy"
- },
- {
   "url": "https://joncodeofficial.github.io/gta-vice-city-wasm",
   "img": "shots/14.jpg",
   "name": "GTA Vice City",
