@@ -15019,5 +15019,28 @@
   "based_on": "Virtua Tennis 3",
   "desc_conf": "high",
   "slug": "virtua-tennis-3-online"
+ },
+ {
+  "url": "https://slowroads.io/",
+  "img": "shots/t220.jpg",
+  "name": "Slow Roads",
+  "host": "slowroads.io",
+  "note": "Free",
+  "cat": "indie",
+  "added": "2026-10-21",
+  "top": false,
+  "mobile": "maybe",
+  "mobile_why": "Not tested on a phone yet",
+  "desc": "Endless, chilled-out driving through a world that builds itself as you go. No goals, no timer, just you, the road and the scenery.",
+  "tags": [
+   "driving",
+   "relaxing",
+   "3d",
+   "endless",
+   "indie"
+  ],
+  "based_on": "",
+  "desc_conf": "high",
+  "slug": "slow-roads"
  }
 ]
