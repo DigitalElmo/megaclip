@@ -1,6 +1,13 @@
 {
  "$schema": "https://openapi.vercel.sh/vercel.json",
  "cleanUrls": true,
+ "redirects": [
+  {
+   "source": "/game/inxanitylabs-com-75-games-includes-paid-games-skip-those",
+   "destination": "/game/inxanity-labs",
+   "permanent": true
+  }
+ ],
  "headers": [
   {
    "source": "/(.*)",

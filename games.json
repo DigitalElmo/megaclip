@@ -1860,7 +1860,7 @@
  {
   "url": "https://inxanitylabs.com/games",
   "img": "shots/n066.jpg",
-  "name": "inxanitylabs.com (~75 games, includes paid games: skip those)",
+  "name": "INXANITY Labs game hub",
   "host": "inxanitylabs.com",
   "note": "Hub",
   "cat": "zones",
@@ -1876,7 +1876,7 @@
   ],
   "based_on": "",
   "desc_conf": "high",
-  "slug": "inxanitylabs-com-75-games-includes-paid-games-skip-those"
+  "slug": "inxanity-labs"
  },
  {
   "url": "https://recompiledgames.com/",

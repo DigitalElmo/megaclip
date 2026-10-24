@@ -271,7 +271,10 @@ hdr = [("Content-Security-Policy", csp), ("X-Frame-Options", "DENY"), ("X-Conten
        ("Referrer-Policy", "strict-origin-when-cross-origin"), ("Cross-Origin-Resource-Policy", "same-origin"),
        ("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()"),
        ("Strict-Transport-Security", "max-age=63072000; includeSubDomains")]
+# Old game URLs that were renamed: send visitors (and Google) to the new page
+REDIRECTS = [("/game/inxanitylabs-com-75-games-includes-paid-games-skip-those", "/game/inxanity-labs")]
 json.dump({"$schema": "https://openapi.vercel.sh/vercel.json", "cleanUrls": True,
+           "redirects": [{"source": a, "destination": b, "permanent": True} for a, b in REDIRECTS],
            "headers": [{"source": "/(.*)", "headers": [{"key": k, "value": v} for k, v in hdr]}]},
           open("vercel.json", "w"), indent=1)
 print("ok", len(games), "games,", len(cats), "categories,", len(paths), "extra pages")
