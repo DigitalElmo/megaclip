@@ -1498,11 +1498,11 @@
   "slug": "star-wars-jedi-academy"
  },
  {
-  "url": "https://inxanitylabs.com/games/nacht-der-untoten",
+  "url": "https://waw.fun",
   "img": "shots/n049.jpg",
   "name": "Nacht der Untoten (WaW zombies)",
-  "host": "inxanitylabs.com",
-  "note": "Solo or 2–4 co-op",
+  "host": "waw.fun",
+  "note": "Pick it in the WaW map list",
   "cat": "shoot",
   "added": "2026-10-10",
   "top": false,
@@ -7117,10 +7117,10 @@
   "slug": "opensro-silkroad-online"
  },
  {
-  "url": "https://redblue.benjamincrozat.com",
+  "url": "https://redblueonline.com/",
   "img": "shots/h133.jpg",
   "name": "Red & Blue Online",
-  "host": "redblue.benjamincrozat.com",
+  "host": "redblueonline.com",
   "note": "",
   "cat": "pokemon",
   "added": "2026-10-14",
@@ -12482,7 +12482,7 @@
   "slug": "gaussian-games"
  },
  {
-  "url": "https://semperplay.com/games/operation-raven/",
+  "url": "https://semperplay.com/en/games/operation-raven/",
   "img": "shots/t106.jpg",
   "name": "Operation Raven",
   "host": "semperplay.com",
@@ -13215,28 +13215,6 @@
   "based_on": "",
   "desc_conf": "high",
   "slug": "eigenmoon"
- },
- {
-  "url": "https://www.crazygames.com/game/bolt-pit",
-  "img": "shots/t139.jpg",
-  "name": "Bolt Pit",
-  "host": "crazygames.com",
-  "note": "",
-  "cat": "shoot",
-  "added": "2026-10-20",
-  "top": false,
-  "mobile": "maybe",
-  "mobile_why": "CrazyGames page",
-  "desc": "Small bot. Big trouble. Blast your way through the pit as a scrappy little robot in this arena shooter.",
-  "tags": [
-   "shooter",
-   "robots",
-   "arena",
-   "action"
-  ],
-  "based_on": "",
-  "desc_conf": "high",
-  "slug": "bolt-pit"
  },
  {
   "url": "https://trenchcam.alesha.pro/",

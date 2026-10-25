@@ -6,6 +6,11 @@
    "source": "/game/inxanitylabs-com-75-games-includes-paid-games-skip-those",
    "destination": "/game/inxanity-labs",
    "permanent": true
+  },
+  {
+   "source": "/game/bolt-pit",
+   "destination": "/category/shoot",
+   "permanent": true
   }
  ],
  "headers": [
