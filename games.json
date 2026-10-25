@@ -1,6 +1,6 @@
 [
  {
-  "url": "https://vel.gg/bo1z",
+  "url": "https://vel.gg/bsz",
   "img": "shots/01.jpg",
   "name": "BO1 Zombies",
   "host": "vel.gg",
@@ -3960,11 +3960,11 @@
   "slug": "gta-iii"
  },
  {
-  "url": "https://vel.gg/bo1z/kino",
+  "url": "https://vel.gg/bsz",
   "img": "shots/r02.jpg",
   "name": "Kino der Toten",
   "host": "vel.gg",
-  "note": "BO1 zombies map",
+  "note": "Pick it in the BO1 zombies map list",
   "cat": "shoot",
   "added": "2026-10-12",
   "top": false,
@@ -3984,11 +3984,11 @@
   "slug": "kino-der-toten"
  },
  {
-  "url": "https://vel.gg/bo1z/moon",
+  "url": "https://vel.gg/bsz",
   "img": "shots/r03.jpg",
   "name": "Moon (Zombies)",
   "host": "vel.gg",
-  "note": "BO1 zombies map",
+  "note": "Pick it in the BO1 zombies map list",
   "cat": "shoot",
   "added": "2026-10-12",
   "top": false,
@@ -15922,5 +15922,93 @@
   "based_on": "",
   "desc_conf": "high",
   "slug": "hopera"
+ },
+ {
+  "url": "https://www.playseedbed.com/",
+  "img": "shots/t261.jpg",
+  "name": "Seedbed",
+  "host": "playseedbed.com",
+  "note": "Free",
+  "cat": "strategy",
+  "added": "2026-10-26",
+  "top": false,
+  "mobile": "no",
+  "mobile_why": "Needs a keyboard",
+  "desc": "Guide a region from 2027 to 2127, building rail and clean energy while each town decides for itself how to live with AI and a warming climate. Free from its creator.",
+  "tags": [
+   "city builder",
+   "climate",
+   "strategy",
+   "pixel"
+  ],
+  "based_on": "",
+  "desc_conf": "high",
+  "slug": "seedbed"
+ },
+ {
+  "url": "https://wasm.rip/files/scp/index.html",
+  "img": "shots/t262.jpg",
+  "name": "SCP: Containment Breach",
+  "host": "wasm.rip",
+  "note": "Free, fan web port",
+  "cat": "adventure",
+  "added": "2026-10-26",
+  "top": false,
+  "mobile": "no",
+  "mobile_why": "Needs a keyboard",
+  "desc": "The free SCP Foundation horror game in your browser. Find a way out of the facility while the anomalies roam, and don't blink.",
+  "tags": [
+   "horror",
+   "scp",
+   "survival",
+   "3d"
+  ],
+  "based_on": "",
+  "desc_conf": "high",
+  "slug": "scp-containment-breach"
+ },
+ {
+  "url": "https://playgama.com/game/city-chase-escape-police",
+  "img": "shots/t263.jpg",
+  "name": "City Chase: Escape Police",
+  "host": "playgama.com",
+  "note": "Free, ads",
+  "cat": "action",
+  "added": "2026-10-26",
+  "top": false,
+  "mobile": "maybe",
+  "mobile_why": "Not tested on a phone yet",
+  "desc": "Floor it through the city with the police on your tail. Weave through traffic, smash what's in the way and grab coins to upgrade your ride.",
+  "tags": [
+   "driving",
+   "police chase",
+   "arcade",
+   "3d"
+  ],
+  "based_on": "",
+  "desc_conf": "high",
+  "slug": "city-chase-escape-police"
+ },
+ {
+  "url": "https://turbowarp.org/178944041",
+  "img": "shots/t264.jpg",
+  "name": "Cuphead Boss Fight: Wally Warbles (fan game)",
+  "host": "turbowarp.org",
+  "note": "Fan game",
+  "cat": "action",
+  "added": "2026-10-26",
+  "top": false,
+  "mobile": "no",
+  "mobile_why": "Needs a keyboard",
+  "desc": "A fan-made Scratch boss fight against Wally Warbles from Cuphead's Aviary Action level, in Simple, Regular and Expert. Not Cuphead itself.",
+  "tags": [
+   "boss fight",
+   "fan game",
+   "scratch",
+   "cartoon"
+  ],
+  "based_on": "",
+  "desc_conf": "high",
+  "slug": "cuphead-boss-fight-wally-warbles-fan-game"
  }
 ]
