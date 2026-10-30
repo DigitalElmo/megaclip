@@ -2,7 +2,7 @@
 
 **[megaclip.games](https://megaclip.games)** — every new browser game worth playing, in one place. Miniclip energy for 2026.
 
-MegaClip is a hand-picked list of 711 games you can play straight in a browser tab: indie games, .io multiplayer, AI-made games, fan ports, Pokémon fan games and daily puzzles. Click and play. Nothing to download or install. New games are added all the time.
+MegaClip is a hand-picked list of 721 games you can play straight in a browser tab: indie games, .io multiplayer, AI-made games, fan ports, Pokémon fan games and daily puzzles. Click and play. Nothing to download or install. New games are added all the time.
 
 It also has two big guides, all in the same search box:
 
